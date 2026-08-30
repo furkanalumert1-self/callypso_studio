@@ -35,7 +35,7 @@ export default function Dashboard() {
   const m = {
     tr: {
       eyebrow: "Stüdyo · Bugün", hi: "Merhaba Alex.", made: "çekim üretildi.",
-      body: "Kataloğun büyüyor ve çekimlerin mağazaya akıyor. Bir ürün seç, bir sahne seç — Pixmint gerisini halleder.",
+      body: "Kataloğun büyüyor ve kreatiflerin onaya akıyor. Bir ürün seç, bir şablon seç — Callypso Studio gerisini halleder.",
       generate: "Çekim üret", featured: "Öne çıkan çekim", goal: "aylık hedef",
       gallery: "Çekim galerisi", all: "Tümü", queueT: "Üretim kuyruğu", jobs: "iş",
       scenesT: "Sahne seçici", products: "Ürünler", recent: "Son hareketler", shotsN: "çekim",
@@ -47,7 +47,7 @@ export default function Dashboard() {
     },
     en: {
       eyebrow: "Studio · Today", hi: "Hi Alex.", made: "shots made.",
-      body: "Your catalog is growing and shots are flowing to the store. Pick a product, pick a scene — Pixmint does the rest.",
+      body: "Your catalog is growing and creatives are flowing to approval. Pick a product, pick a template — Callypso Studio does the rest.",
       generate: "Generate a shot", featured: "Featured shot", goal: "monthly goal",
       gallery: "Shot gallery", all: "All", queueT: "Generation queue", jobs: "jobs",
       scenesT: "Scene picker", products: "Products", recent: "Recent activity", shotsN: "shots",

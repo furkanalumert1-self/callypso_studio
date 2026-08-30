@@ -2,8 +2,9 @@ import { cn } from "@/lib/utils";
 import appConfig from "@/app.config";
 
 /**
- * Pixmint logomark — a camera aperture whose blades open into a spark/highlight.
- * A studio lens that "mints" a shot. Fuchsia gradient on a deep plum chip.
+ * Callypso Studio logomark — a camera aperture whose blades open into a
+ * spark/highlight. A studio lens that renders a creative. Fuchsia gradient
+ * on a deep plum chip.
  */
 export function LogoMark({ className }: { className?: string }) {
   const blades = [0, 60, 120, 180, 240, 300];

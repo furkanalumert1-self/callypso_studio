@@ -32,43 +32,43 @@ export interface AppConfig {
 }
 
 export const appConfig: AppConfig = {
-  name: "Pixmint",
-  tagline: { tr: "Stüdyo kalitesinde ürün fotoğrafları, istediğin an üretilsin.", en: "Studio-grade product photos, generated on demand." },
+  name: "Callypso Studio",
+  tagline: { tr: "Tek bir ürün fotoğrafını satışa hazır kreatiflere dönüştür.", en: "Turn one product photo into sales-ready creatives." },
   description: {
-    tr: "Pixmint ürününün tek bir telefon fotoğrafını markana uygun, stüdyo kalitesinde bir çekim setine dönüştürür — yaşam tarzı, beyaz fon ve sezonluk — doğrudan mağazana senkronlanır.",
-    en: "Pixmint turns a single phone snap of your product into a full set of on-brand studio shots — lifestyle, white-background and seasonal — synced straight to your store.",
+    tr: "Callypso Studio, e-ticaret markalarının tek bir ürün fotoğrafından AI ile profesyonel satış kreatifleri üretmesini sağlar — ürün kilitli, markana uygun, Studio'dan Meta Ads'e kadar her kullanım için hazır.",
+    en: "Callypso Studio is an AI creative studio for e-commerce brands — it turns a single product photo into professional, on-brand, product-locked sales creatives, ready for anything from Studio to Meta Ads.",
   },
-  domain: "pixmint.studio",
-  logoText: "Px",
+  domain: "callypsostudio.com",
+  logoText: "Cs",
   accentName: "fuchsia",
 
   marketing: {
-    badge: { tr: "AI ürün fotoğrafçılığı", en: "AI product photography" },
+    badge: { tr: "E-ticaret için AI Kreatif Stüdyo", en: "AI Creative Studio for E-commerce" },
     heroTitle: {
-      tr: "Kataloğa hazır ürün çekimleri,",
-      en: "Catalog-ready product shots,",
+      tr: "Satışa hazır ürün kreatifleri,",
+      en: "Sales-ready product creatives,",
     },
     heroAccent: {
       tr: "stüdyoya gerek kalmadan.",
       en: "without the studio.",
     },
     heroSubtitle: {
-      tr: "Tek bir fotoğraf yükle, bir görünüm seç; Pixmint markana uygun temiz bir ürün görseli seti üretir — yaşam tarzı sahneleri, net beyaz fonlar ve kampanya hero çekimleri — Shopify'a göndermeye hazır.",
-      en: "Upload one photo, pick a look, and Pixmint generates a clean set of on-brand product images — lifestyle scenes, crisp white backgrounds and campaign hero shots — ready to push to Shopify.",
+      tr: "Tek bir ürün fotoğrafı yükle; Callypso Studio ürününü kilitler, marka profiline uygun bir sahne şablonu uygular ve saniyeler içinde 4 varyasyon üretir. Studio, Lifestyle, Instagram, Meta Ads ve E-ticaret için hazır — onayla ve dışa aktar.",
+      en: "Upload one product photo; Callypso Studio locks the product, applies an on-brand scene template, and generates 4 variations in seconds. Ready for Studio, Lifestyle, Instagram, Meta Ads and E-commerce — approve and export.",
     },
-    heroCtaPrimary: { tr: "Bir çekim üret", en: "Generate a shot" },
+    heroCtaPrimary: { tr: "Bir kreatif üret", en: "Generate a creative" },
     heroCtaSecondary: { tr: "Galeriyi gör", en: "See the gallery" },
     features: [
-      { icon: "sparkles", title: { tr: "Tek kare, tam set", en: "One snap, a full set" }, body: { tr: "Tek bir ürün fotoğrafı bırak; bir düzine cilalı açı, sahne ve kırpma al — ışık kutusu yok, fotoğrafçı yok, yeniden çekim yok.", en: "Drop in a single product photo and get a dozen polished angles, scenes and crops — no lightbox, no photographer, no reshoots." } },
-      { icon: "palette", title: { tr: "Markana kilitli", en: "Locked to your brand" }, body: { tr: "Paletini, aksesuarlarını ve havanı bir kez ayarla. Her üretilen çekim markana uygun gelir; grid'in ve ürün sayfan tutarlı kalır.", en: "Set your palette, props and mood once. Every generated shot lands on-brand, so your grid and PDP stay consistent." } },
-      { icon: "image", title: { tr: "Her sahnede yaşam tarzı", en: "Lifestyle in any scene" }, body: { tr: "Ürünleri mermere, ketene, güneşli bir kafe masasına ya da temiz bir stüdyo fonuna yerleştir — tarif et, Pixmint sahneyi kursun.", en: "Place products on marble, linen, a sunlit café table or a clean studio sweep — describe it and Pixmint builds the scene." } },
-      { icon: "wand-sparkles", title: { tr: "Temiz kesimler, ücretsiz", en: "Clean cut-outs, free" }, body: { tr: "Pazaryeri listeleri için net kenarlar ve saf beyaz fonlar, her çekimden otomatik üretilir.", en: "Crisp edges and pure white backgrounds for marketplace listings, generated automatically from every shot." } },
-      { icon: "package", title: { tr: "Mağazana senkron", en: "Synced to your store" }, body: { tr: "Bir çekimi onayla; doğrudan ilgili Shopify ürününe gider — görseller sattığın yerde, tek tıkla.", en: "Approve a shot and it pushes straight to the right Shopify product — images live where you sell, in one click." } },
-      { icon: "layers", title: { tr: "Varyantlar ve sezonlar", en: "Variants & seasons" }, body: { tr: "Bir hero çekiminin Kara Cuma, yaz veya hediye versiyonlarını saniyeler içinde aynı kaynak üründen üret.", en: "Spin up Black Friday, summer or gifting versions of a hero shot in seconds, all from the same source product." } },
+      { icon: "lock", title: { tr: "Ürün Kilidi", en: "Product Lock" }, body: { tr: "Logo, yazı, renk, şekil ve ambalaj değişmeden kalır — Callypso Studio yalnızca sahneyi yeniden kurar, ürününü değil.", en: "Logo, text, color, shape and packaging stay untouched — Callypso Studio only rebuilds the scene, never your product." } },
+      { icon: "palette", title: { tr: "Marka Profili", en: "Brand Profile" }, body: { tr: "Marka renklerini, stilini, logonu ve görsel tercihlerini bir kez ayarla; her üretim markana kilitli kalır.", en: "Set your brand colors, style, logo and visual preferences once — every generation stays locked to your brand." } },
+      { icon: "image", title: { tr: "Şablon Kilidi", en: "Template Lock" }, body: { tr: "Beğendiğin bir sahne/ışık/kompozisyonu kilitle; sonraki ürünlerinde aynı bakışı tek tıkla tekrar kullan.", en: "Lock a scene, light and composition you like, then reuse that exact look on your next products in one click." } },
+      { icon: "sparkles", title: { tr: "4 varyasyon, saniyeler içinde", en: "4 variations, in seconds" }, body: { tr: "Her üretim aynı kaynak üründen 4 farklı varyasyon çıkarır; beğendiğini onayla, gerisini eleyebilirsin.", en: "Every generation produces 4 variations from the same source product — approve the ones you like, skip the rest." } },
+      { icon: "wand-sparkles", title: { tr: "Hazır kullanım tipleri", en: "Ready-made use cases" }, body: { tr: "Studio, Lifestyle, Instagram, Meta Ads ve E-ticaret için hazır şablonlarla, doğru formatta üret.", en: "Generate in the right format with ready templates for Studio, Lifestyle, Instagram, Meta Ads and E-commerce." } },
+      { icon: "layers", title: { tr: "Dışa aktarım oranları", en: "Export ratios" }, body: { tr: "Onayladığın her kreatifi 1:1, 4:5 ve 9:16 oranlarında dışa aktar — kanal ne olursa olsun hazır.", en: "Export every approved creative in 1:1, 4:5 and 9:16 — ready for any channel." } },
     ],
     stats: [
-      { value: "12 çekim", label: { tr: "tek fotoğraftan", en: "from one photo" } },
-      { value: "90sn", label: { tr: "tam bir sete", en: "to a full set" } },
+      { value: "4 varyasyon", label: { tr: "tek fotoğraftan", en: "from one photo" } },
+      { value: "90sn", label: { tr: "onaya hazır sete", en: "to an approve-ready set" } },
       { value: "$0", label: { tr: "stüdyo kirası", en: "studio rental" } },
       { value: "0", label: { tr: "anahtarla dene", en: "keys to try it" } },
     ],
@@ -78,9 +78,9 @@ export const appConfig: AppConfig = {
       { name: "Studio", price: "$129", period: "/ay", tagline: { tr: "Ajanslar ve büyük kataloglar için.", en: "For agencies & big catalogs." }, features: [{ tr: "Sınırsız marka kiti", en: "Unlimited brand kits" }, { tr: "Toplu üretim", en: "Bulk generation" }, { tr: "Müşteri çalışma alanları", en: "Client workspaces" }, { tr: "Öncelikli render", en: "Priority rendering" }], cta: { tr: "Bize ulaş", en: "Talk to us" } },
     ],
     faq: [
-      { q: { tr: "Denemek için API anahtarı gerekli mi?", en: "Do I need API keys to try it?" }, a: { tr: "Hayır. Pixmint örnek bir ürün kataloğu ve üretilmiş çekimlerle demo modda açılır; hemen tıklayıp gezebilirsin. Gerçekten üretmek ve senkronlamak için fal.ai ve Shopify anahtarlarını sonra ekle.", en: "No. Pixmint boots in demo mode with a sample product catalog and generated shots so you can click around immediately. Add your fal.ai and Shopify keys later to generate and sync for real." } },
-      { q: { tr: "Çekimler gerçekten ürünüm gibi görünür mü?", en: "Will the shots actually look like my product?" }, a: { tr: "Evet — Pixmint yüklediğin fotoğrafı temel alır; renkler, biçim ve etiketler aslına sadık kalır. Her çekimi mağazana dokunmadan önce sen incelersin.", en: "Yes — Pixmint conditions on your uploaded photo, so colors, shape and labels stay true. You review every shot before it touches your store." } },
-      { q: { tr: "Görselleri mağazama gönderebilir mi?", en: "Can it push images to my store?" }, a: { tr: "Ayarlar'dan Shopify'ı bağla; onaylanan çekimler eşleşen ürüne senkronlanır. Ya da dosyaları indirip istediğin yere yükle.", en: "Connect Shopify in Settings and approved shots sync to the matching product. Or just download the files and upload anywhere." } },
+      { q: { tr: "Denemek için API anahtarı gerekli mi?", en: "Do I need API keys to try it?" }, a: { tr: "Hayır. Callypso Studio örnek bir ürün kataloğu ve üretilmiş kreatiflerle demo modda açılır; hemen tıklayıp gezebilirsin. Gerçekten üretmek için fal.ai anahtarını sonra ekle.", en: "No. Callypso Studio boots in demo mode with a sample product catalog and generated creatives so you can click around immediately. Add your fal.ai key later to generate for real." } },
+      { q: { tr: "Kreatifler gerçekten ürünüm gibi görünür mü?", en: "Will the creatives actually look like my product?" }, a: { tr: "Evet — Ürün Kilidi sayesinde yüklediğin fotoğraf temel alınır; logo, yazı, renk, şekil ve ambalaj aslına sadık kalır. Her kreatifi mağazana dokunmadan önce sen onaylarsın.", en: "Yes — Product Lock conditions on your uploaded photo, so the logo, text, color, shape and packaging stay true. You approve every creative before it touches your store." } },
+      { q: { tr: "Görselleri mağazama gönderebilir mi?", en: "Can it push images to my store?" }, a: { tr: "Bu ilk aşamada Shopify, ikas ve Meta senkronu henüz yok (yol haritamızda) — onayladığın kreatifleri 1:1, 4:5 ve 9:16 oranlarında dışa aktarıp istediğin yere yükleyebilirsin.", en: "Shopify, ikas and Meta sync aren't wired up yet in this first phase (they're on the roadmap) — export your approved creatives in 1:1, 4:5 and 9:16 and upload them anywhere." } },
       { q: { tr: "Teknoloji nedir?", en: "What's the stack?" }, a: { tr: "Next.js 16, React 19, Tailwind v4. Her yere dağıtabileceğin standart bir uygulama.", en: "Next.js 16, React 19, Tailwind v4. It's a standard app you can deploy anywhere." } },
     ],
   },
@@ -103,12 +103,14 @@ export const appConfig: AppConfig = {
       purpose: "Generates product shots, lifestyle scenes and clean cut-outs from a single photo.",
     },
     {
+      // TODO(real integration): Shopify push is a demo stub in phase 1. ikas and
+      // Meta Ads sync are on the roadmap but intentionally not built yet.
       key: "shopify",
       name: "Shopify",
       envVars: ["SHOPIFY_STORE_DOMAIN", "SHOPIFY_ADMIN_ACCESS_TOKEN"],
       required: false,
       docsUrl: "https://shopify.dev/docs/apps/auth/admin-app-access-tokens",
-      purpose: "Syncs your product list and pushes approved shots to the right product.",
+      purpose: "Syncs your product list and pushes approved creatives to the right product. (Roadmap — not wired up yet.)",
     },
     {
       key: "supabase",
@@ -116,7 +118,7 @@ export const appConfig: AppConfig = {
       envVars: ["NEXT_PUBLIC_SUPABASE_URL", "NEXT_PUBLIC_SUPABASE_ANON_KEY"],
       required: false,
       docsUrl: "https://supabase.com/dashboard/project/_/settings/api",
-      purpose: "Stores products, brand kits and generated shots. Without it, runs in demo mode.",
+      purpose: "Stores products, brand profiles, locked templates and generated creatives. Without it, runs in demo mode.",
     },
   ],
 };

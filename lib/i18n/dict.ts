@@ -48,6 +48,22 @@ export const ui = {
     saveChanges: "Değişiklikleri kaydet",
     brandHint: "Bunlar app.config.ts dosyasından gelir. Değiştirmek için kurulumu tekrar çalıştır.",
     integrationsHint: ".env.local içinde anahtarlar olduğunda bağlanır. Anahtar yoksa o özellik demo modda kalır.",
+    // brand profile
+    brandProfile: "Marka Profili",
+    brandColors: "Marka renkleri",
+    brandStyle: "Stil",
+    brandLogo: "Logo",
+    visualPreferences: "Görsel tercihler",
+    // product / template lock
+    productLock: "Ürün Kilidi",
+    productLockHint: "Logo, yazı, renk, şekil ve ambalaj korunur — yalnızca sahne yeniden kurulur.",
+    templateLock: "Şablon Kilidi",
+    lockTemplate: "Şablonu kilitle",
+    unlockTemplate: "Kilidi kaldır",
+    locked: "Kilitli",
+    useCase: "Kullanım tipi",
+    roadmap: "Yol haritası",
+    exportCta: "Dışa aktar",
   },
   en: {
     features: "Features",
@@ -88,6 +104,22 @@ export const ui = {
     saveChanges: "Save changes",
     brandHint: "These come from app.config.ts. Re-run setup any time to change them.",
     integrationsHint: "Connected when the keys exist in .env.local. Missing keys keep that feature in demo mode.",
+    // brand profile
+    brandProfile: "Brand Profile",
+    brandColors: "Brand colors",
+    brandStyle: "Style",
+    brandLogo: "Logo",
+    visualPreferences: "Visual preferences",
+    // product / template lock
+    productLock: "Product Lock",
+    productLockHint: "Logo, text, color, shape and packaging stay unchanged — only the scene is rebuilt.",
+    templateLock: "Template Lock",
+    lockTemplate: "Lock this template",
+    unlockTemplate: "Unlock template",
+    locked: "Locked",
+    useCase: "Use case",
+    roadmap: "Roadmap",
+    exportCta: "Export",
   },
 } satisfies Record<Lang, Record<string, string>>;
 

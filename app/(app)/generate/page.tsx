@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Sparkles, Upload, Download, Send, Check, Info, RefreshCw } from "lucide-react";
+import { Sparkles, Upload, Download, Lock, Check, Info, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ShotImage } from "@/components/shot-image";
@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 const ratioClass: Record<string, string> = {
   "1:1": "aspect-square",
   "4:5": "aspect-[4/5]",
-  "16:9": "aspect-video",
+  "9:16": "aspect-[9/16]",
 };
 
 export default function GeneratePage() {
@@ -33,20 +33,22 @@ export default function GeneratePage() {
 
   const m = {
     tr: {
-      title: "Üret", sub: "Bir ürün ve bir sahne seç — Pixmint setini üretsin.",
-      step1: "1 · Ürün", step2: "2 · Sahne", source: "Kaynak fotoğraf",
-      upload: "Fotoğraf yükle", generate: "Çekim üret", regenerate: "Yeniden üret",
-      generating: "Üretiliyor…", result: "Üretilen set", approveAll: "Tümünü onayla",
-      sync: "Mağazaya gönder", demo: "Demo modu — gerçekten üretmek için fal.ai anahtarını bağla.",
+      title: "Üret", sub: "Bir ürün ve bir sahne şablonu seç — Callypso Studio 4 varyasyon üretsin.",
+      step1: "1 · Ürün", step2: "2 · Sahne Şablonu", source: "Kaynak fotoğraf",
+      upload: "Fotoğraf yükle", generate: "4 varyasyon üret", regenerate: "Yeniden üret",
+      generating: "Üretiliyor…", result: "4 Varyasyon", approveAll: "Tümünü onayla",
+      sync: "Dışa aktar", demo: "Demo modu — gerçekten üretmek için fal.ai anahtarını bağla. Shopify/ikas/Meta senkronu bu ilk aşamada yok (TODO — yol haritası).",
       lockedTo: "markaya kilitli", scenePicked: "Seçili sahne",
+      productLock: "Ürün Kilidi aktif", productLockHint: "Logo, yazı, renk, şekil ve ambalaj korunur.",
     },
     en: {
-      title: "Generate", sub: "Pick a product and a scene — Pixmint generates the set.",
-      step1: "1 · Product", step2: "2 · Scene", source: "Source photo",
-      upload: "Upload photo", generate: "Generate shots", regenerate: "Regenerate",
-      generating: "Generating…", result: "Generated set", approveAll: "Approve all",
-      sync: "Push to store", demo: "Demo mode — connect your fal.ai key to generate for real.",
+      title: "Generate", sub: "Pick a product and a scene template — Callypso Studio generates 4 variations.",
+      step1: "1 · Product", step2: "2 · Scene Template", source: "Source photo",
+      upload: "Upload photo", generate: "Generate 4 variations", regenerate: "Regenerate",
+      generating: "Generating…", result: "4 Variations", approveAll: "Approve all",
+      sync: "Export", demo: "Demo mode — connect your fal.ai key to generate for real. Shopify/ikas/Meta sync isn't built in this first phase (TODO — roadmap).",
       lockedTo: "locked to brand", scenePicked: "Selected scene",
+      productLock: "Product Lock active", productLockHint: "Logo, text, color, shape and packaging stay unchanged.",
     },
   }[lang];
 
@@ -67,6 +69,10 @@ export default function GeneratePage() {
               <ShotImage scene="studio" hue={product.hue} emoji={product.emoji} className="aspect-square w-full" />
             </div>
             <Button variant="outline" className="mt-3 w-full gap-2"><Upload className="h-4 w-4" /> {m.upload}</Button>
+            <p className="mt-3 flex items-start gap-1.5 rounded-lg bg-muted px-3 py-2 text-[11px] text-muted-foreground">
+              <Lock className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary" />
+              <span><span className="font-medium text-foreground">{m.productLock}</span> · {m.productLockHint}</span>
+            </p>
           </div>
 
           {/* Product picker */}
@@ -121,13 +127,14 @@ export default function GeneratePage() {
             </div>
             <div className="flex gap-2">
               <Button variant="outline" size="sm" className="gap-1.5"><Check className="h-3.5 w-3.5" /> {m.approveAll}</Button>
-              <Button size="sm" className="gap-1.5"><Send className="h-3.5 w-3.5" /> {m.sync}</Button>
+              {/* TODO(real integration): Shopify/ikas/Meta Ads push — roadmap, not built in phase 1. */}
+              <Button size="sm" className="gap-1.5"><Download className="h-3.5 w-3.5" /> {m.sync}</Button>
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
             {shotRecipes.map((r, i) => (
-              <article key={r.id} className={cn("group relative overflow-hidden rounded-2xl bg-card shadow-soft ring-1 ring-border transition-all", busy ? "animate-pulse" : "hover:-translate-y-1 hover:shadow-pop", r.ratio === "16:9" && "col-span-2 sm:col-span-3")}>
+              <article key={r.id} className={cn("group relative overflow-hidden rounded-2xl bg-card shadow-soft ring-1 ring-border transition-all", busy ? "animate-pulse" : "hover:-translate-y-1 hover:shadow-pop")}>
                 <div className={cn("w-full", ratioClass[r.ratio])}>
                   {!busy && <ShotImage scene={scene.kind} hue={`${Number(scene.hue) + i * 4}`} emoji={product.emoji} className="h-full w-full" />}
                 </div>

@@ -18,15 +18,15 @@ const moduleIcons = [Sparkles, Palette, ImageIcon, WandSparkles, Package, Layers
 const content = {
   tr: {
     nav: ["Ne yapar", "Nasıl çalışır", "Fiyatlar"], signin: "Giriş yap", demo: "Demoyu dene",
-    badge: "AI ürün fotoğrafçılığı stüdyosu",
+    badge: "E-ticaret için AI Kreatif Stüdyo",
     h1a: "Tek fotoğraf gir,", h1b: "tam bir çekim seti çık.", h1c: "Stüdyoya gerek yok.",
-    sub: "Pixmint ürününün tek bir telefon karesini alır; ışık kutusu, fotoğrafçı ve yeniden çekim olmadan markana kilitli, kataloğa hazır bir çekim seti üretir — yaşam tarzı sahneleri, net beyaz fonlar, kampanya hero'ları — doğrudan mağazana.",
+    sub: "Callypso Studio, tek bir ürün fotoğrafını satışa hazır kreatiflere dönüştürür; ışık kutusu, fotoğrafçı ve yeniden çekim olmadan markana kilitli bir set üretir — yaşam tarzı sahneleri, net beyaz fonlar, kampanya hero'ları — doğrudan mağazana.",
     cta1: "Bir çekim üret", cta2: "Galeriyi gör", note: "· kart yok · 60 saniyelik demo",
-    proofAvatars: "300+ DTC mağazası çekimlerini Pixmint'e ürettiriyor.",
-    marqueeTitle: "Pixmint her sahneyi kurar",
+    proofAvatars: "300+ DTC mağazası çekimlerini Callypso Studio'e ürettiriyor.",
+    marqueeTitle: "Callypso Studio her sahneyi kurar",
     marquee: ["Beyaz Fon", "Mermer Stüdyo", "Altın Saat", "Kafe Masası", "Yumuşak Keten", "Neon Noir", "Çakıl & Su", "Bitki Köşesi", "Cam Yüzey", "Kraft Kâğıt", "Pastel Set", "Gece Vitrini"],
     problemKicker: "Eski yol", problemH: ["Stüdyo pahalı,", "her yeniden çekim bir gün."],
-    problemBody: "Işık kutusu kirası, fotoğrafçı günlüğü, geri dönüş süresi, her varyant ve sezon için yeni bir çekim... ürün sayfan boş kalır, listelerin tutarsız görünür, satış kaçar. Pixmint bütün bu işi tek fotoğrafa ve birkaç dakikaya indirir.",
+    problemBody: "Işık kutusu kirası, fotoğrafçı günlüğü, geri dönüş süresi, her varyant ve sezon için yeni bir çekim... ürün sayfan boş kalır, listelerin tutarsız görünür, satış kaçar. Callypso Studio bütün bu işi tek fotoğrafa ve birkaç dakikaya indirir.",
     problemStats: [
       { n: "$450", l: "ürün başına fotoğrafçı + stüdyo" },
       { n: "3 gün", l: "çekimden teslime bekleme" },
@@ -37,14 +37,14 @@ const content = {
     modules: [
       { t: "Tek kare, tam set", b: "Tek bir ürün fotoğrafı bırak; bir düzine cilalı açı, sahne ve kırpma al — ışık kutusu yok, fotoğrafçı yok, yeniden çekim yok." },
       { t: "Markana kilitli", b: "Paletini, aksesuarlarını ve havanı bir kez ayarla. Her çekim markana uygun gelir; grid'in ve ürün sayfan tutarlı kalır." },
-      { t: "Her sahnede yaşam tarzı", b: "Ürünleri mermere, ketene, güneşli bir kafe masasına ya da temiz bir stüdyo fonuna yerleştir — tarif et, Pixmint sahneyi kursun." },
+      { t: "Her sahnede yaşam tarzı", b: "Ürünleri mermere, ketene, güneşli bir kafe masasına ya da temiz bir stüdyo fonuna yerleştir — tarif et, Callypso Studio sahneyi kursun." },
       { t: "Temiz kesimler, ücretsiz", b: "Pazaryeri listeleri için net kenarlar ve saf beyaz fonlar, her çekimden otomatik üretilir." },
       { t: "Mağazana senkron", b: "Bir çekimi onayla; doğrudan ilgili Shopify ürününe gider — görseller sattığın yerde, tek tıkla." },
       { t: "Varyantlar ve sezonlar", b: "Bir hero'nun Kara Cuma, yaz veya hediye versiyonlarını saniyeler içinde aynı kaynak üründen üret." },
     ],
     stepsKicker: "Üç adım", stepsH: ["Fotoğraf, sahne,", "yayında."],
     steps: [
-      { n: "01", t: "Bir kare yükle", b: "Telefonla çekilmiş tek bir ürün fotoğrafı yeter. Pixmint ürünü tanır, fonu çözer." },
+      { n: "01", t: "Bir kare yükle", b: "Telefonla çekilmiş tek bir ürün fotoğrafı yeter. Callypso Studio ürünü tanır, fonu çözer." },
       { n: "02", t: "Bir sahne seç", b: "Mermer, altın saat, beyaz fon... bir bak tıkla. Markana kilitli her seferinde." },
       { n: "03", t: "Onayla & senkronla", b: "Beğendiğin çekimleri onayla; tek tıkla mağazana ve sosyal kanallarına iner." },
     ],
@@ -64,8 +64,8 @@ const content = {
       { q: "Ajans olarak 6 müşterinin kataloğunu aynı hafta teslim ettik. Stüdyo takvimi artık darboğaz değil.", n: "Ozan B.", r: "Northlight Studio, ajans", metric: "6 müşteri / 1 hafta" },
       { q: "Yeni ürünü stoğa girer girmez fotoğrafları hazır oluyor. Boş ürün sayfası diye bir şey kalmadı.", n: "Yasemin K.", r: "Pebble & Co, e-ticaret", metric: "Teslim 3 gün → 90 sn" },
     ],
-    compareKicker: "Karşılaştır", compareH: ["Stüdyo, Photoshop", "ve Pixmint."],
-    compareCols: ["Stüdyo çekimi", "Photoshop", "Pixmint"],
+    compareKicker: "Karşılaştır", compareH: ["Stüdyo, Photoshop", "ve Callypso Studio."],
+    compareCols: ["Stüdyo çekimi", "Photoshop", "Callypso Studio"],
     compareRows: [
       { l: "Bir set için maliyet", a: "$300–600 / ürün", p: "Saatlik tasarımcı", b: "Plan dahili" },
       { l: "Geri dönüş", a: "2–5 gün", p: "Saatler", b: "~90 saniye" },
@@ -77,7 +77,7 @@ const content = {
       { l: "Mağaza senkronu", a: "Manuel yükleme", p: "Manuel dışa aktar", b: "Tek tıkla" },
     ],
     promiseKicker: "Dürüst söz", promiseH: ["Ürünü sahnele.", "Çarpıtma."],
-    promiseBody: "Pixmint çekimi yüklediğin fotoğrafa dayandırır — renk, biçim ve etiket aslına sadık kalır. Sahne ve ışık değişir, ürünün değişmez. Her çekimi mağazana dokunmadan önce sen incelersin.",
+    promiseBody: "Callypso Studio çekimi yüklediğin fotoğrafa dayandırır — renk, biçim ve etiket aslına sadık kalır. Sahne ve ışık değişir, ürünün değişmez. Her çekimi mağazana dokunmadan önce sen incelersin.",
     promiseBullets: [
       "Ürünün rengi, biçimi ve etiketleri olduğu gibi korunur.",
       "Her çekim, yayınlanmadan önce senin onayından geçer.",
@@ -92,8 +92,8 @@ const content = {
     ],
     faqKicker: "Merak edilenler", faqH: "Kısa cevaplar.",
     faq: [
-      { q: "Denemek için API anahtarı gerekir mi?", a: "Hayır. Pixmint örnek bir ürün kataloğu ve üretilmiş çekimlerle demo modda açılır — hemen tıklayabilirsin. Gerçekten üretmek ve senkronlamak için fal.ai ve Shopify anahtarlarını sonra eklersin." },
-      { q: "Çekimler gerçekten ürünüm gibi görünür mü?", a: "Evet — Pixmint yüklediğin fotoğrafı temel alır; renkler, biçim ve etiketler aslına sadık kalır. Her çekimi mağazana dokunmadan önce sen incelersin." },
+      { q: "Denemek için API anahtarı gerekir mi?", a: "Hayır. Callypso Studio örnek bir ürün kataloğu ve üretilmiş çekimlerle demo modda açılır — hemen tıklayabilirsin. Gerçekten üretmek ve senkronlamak için fal.ai ve Shopify anahtarlarını sonra eklersin." },
+      { q: "Çekimler gerçekten ürünüm gibi görünür mü?", a: "Evet — Callypso Studio yüklediğin fotoğrafı temel alır; renkler, biçim ve etiketler aslına sadık kalır. Her çekimi mağazana dokunmadan önce sen incelersin." },
       { q: "Görselleri mağazama gönderebilir mi?", a: "Ayarlar'dan Shopify'ı bağla; onaylanan çekimler eşleşen ürüne senkronlanır. Ya da dosyaları indirip istediğin yere yükle." },
       { q: "Hangi formatları dışa aktarabilirim?", a: "Pazaryeri kareleri (1:1), PDP ve sosyal oranları (4:5, 9:16, 16:9), beyaz fon kesimleri ve 4K çıktılar. Her kanal için doğru boyut tek tıkla hazır." },
       { q: "Kendi marka kitimi kullanabilir miyim?", a: "Evet. Paletini, aksesuarlarını ve havanı bir kez ayarla; her çekim o kite kilitlenir, böylece tüm listelerin aynı görünür." },
@@ -130,7 +130,7 @@ const content = {
 
     /* Backdrops gallery */
     bdKicker: "Sahneler & fonlar", bdH: ["Bir kütüphane dolusu", "sahne, hazır bekliyor."],
-    bdBody: "Mermerden suya, ahşaptan neona — bir bakışta seç, Pixmint ürününü o sahneye yerleştirsin.",
+    bdBody: "Mermerden suya, ahşaptan neona — bir bakışta seç, Callypso Studio ürününü o sahneye yerleştirsin.",
     backdrops: [
       { label: "Mermer Stüdyo", kind: "marble", hue: "250", emoji: "🧴" },
       { label: "Beyaz Fon", kind: "studio", hue: "345", emoji: "👜" },
@@ -147,7 +147,7 @@ const content = {
     /* Workflow deep-dive + integrations */
     flowKicker: "Akış", flowH: ["Yükle, seç,", "indir."],
     flow: [
-      { n: "01", t: "Ürün fotoğrafını yükle", b: "Telefonla çekilmiş tek bir kare yeter; Pixmint ürünü ve fonu çözer." },
+      { n: "01", t: "Ürün fotoğrafını yükle", b: "Telefonla çekilmiş tek bir kare yeter; Callypso Studio ürünü ve fonu çözer." },
       { n: "02", t: "Sahneyi seç", b: "Kütüphaneden bir fon tıkla ya da kendi tarifini yaz — markana kilitli." },
       { n: "03", t: "Varyantları al", b: "Bir set varyant, kırpma ve oran saniyeler içinde önüne gelir." },
       { n: "04", t: "İndir ya da senkronla", b: "Beğendiklerini indir veya tek tıkla doğrudan mağazana gönder." },
@@ -161,15 +161,15 @@ const content = {
   },
   en: {
     nav: ["What it does", "How it works", "Pricing"], signin: "Sign in", demo: "Try the demo",
-    badge: "AI product photography studio",
+    badge: "AI Creative Studio for E-commerce",
     h1a: "Drop one photo,", h1b: "get a full shot set.", h1c: "No studio required.",
-    sub: "Pixmint takes a single phone snap of your product and generates an on-brand, catalog-ready shot set — lifestyle scenes, crisp white backgrounds, campaign heroes — with no lightbox, no photographer, no reshoots. Straight to your store.",
+    sub: "Callypso Studio turns one product photo into sales-ready creatives — an on-brand set of lifestyle scenes, crisp white backgrounds and campaign heroes — with no lightbox, no photographer, no reshoots. Straight to your store.",
     cta1: "Generate a shot", cta2: "See the gallery", note: "· no card · 60-second demo",
-    proofAvatars: "300+ DTC stores let Pixmint generate their shots.",
-    marqueeTitle: "Pixmint builds every scene",
+    proofAvatars: "300+ DTC stores let Callypso Studio generate their shots.",
+    marqueeTitle: "Callypso Studio builds every scene",
     marquee: ["White Sweep", "Marble Studio", "Golden Hour", "Café Table", "Soft Linen", "Neon Noir", "Pebble & Water", "Plant Corner", "Glass Surface", "Kraft Paper", "Pastel Set", "Night Vitrine"],
     problemKicker: "The old way", problemH: ["Studios are expensive,", "every reshoot is a day."],
-    problemBody: "Lightbox rental, a photographer's day-rate, the turnaround wait, a fresh shoot for every variant and season... your PDP sits empty, your listings look inconsistent, and the sale slips. Pixmint collapses all of it into one photo and a few minutes.",
+    problemBody: "Lightbox rental, a photographer's day-rate, the turnaround wait, a fresh shoot for every variant and season... your PDP sits empty, your listings look inconsistent, and the sale slips. Callypso Studio collapses all of it into one photo and a few minutes.",
     problemStats: [
       { n: "$450", l: "photographer + studio, per product" },
       { n: "3 days", l: "shoot-to-delivery turnaround" },
@@ -180,14 +180,14 @@ const content = {
     modules: [
       { t: "One snap, a full set", b: "Drop in a single product photo and get a dozen polished angles, scenes and crops — no lightbox, no photographer, no reshoots." },
       { t: "Locked to your brand", b: "Set your palette, props and mood once. Every shot lands on-brand, so your grid and PDP stay consistent." },
-      { t: "Lifestyle in any scene", b: "Place products on marble, linen, a sunlit café table or a clean studio sweep — describe it and Pixmint builds the scene." },
+      { t: "Lifestyle in any scene", b: "Place products on marble, linen, a sunlit café table or a clean studio sweep — describe it and Callypso Studio builds the scene." },
       { t: "Clean cut-outs, free", b: "Crisp edges and pure white backgrounds for marketplace listings, generated automatically from every shot." },
       { t: "Synced to your store", b: "Approve a shot and it pushes straight to the right Shopify product — images live where you sell, in one click." },
       { t: "Variants & seasons", b: "Spin up Black Friday, summer or gifting versions of a hero in seconds, all from the same source product." },
     ],
     stepsKicker: "Three steps", stepsH: ["Photo, scene,", "live."],
     steps: [
-      { n: "01", t: "Upload one snap", b: "A single phone photo of the product is enough. Pixmint recognises it and resolves the background." },
+      { n: "01", t: "Upload one snap", b: "A single phone photo of the product is enough. Callypso Studio recognises it and resolves the background." },
       { n: "02", t: "Pick a scene", b: "Marble, golden hour, white sweep... glance and click. Locked to your brand every time." },
       { n: "03", t: "Approve & sync", b: "Approve the shots you love; one click pushes them to your store and social channels." },
     ],
@@ -207,8 +207,8 @@ const content = {
       { q: "As an agency we delivered 6 client catalogs in the same week. Studio calendars are no longer the bottleneck.", n: "Ozan B.", r: "Northlight Studio, agency", metric: "6 clients / 1 week" },
       { q: "The moment a product hits stock, its photos are ready. We don't have empty product pages anymore.", n: "Yasemin K.", r: "Pebble & Co, ecommerce", metric: "Delivery 3 days → 90s" },
     ],
-    compareKicker: "Compare", compareH: ["Studio, Photoshop", "and Pixmint."],
-    compareCols: ["Studio shoot", "Photoshop", "Pixmint"],
+    compareKicker: "Compare", compareH: ["Studio, Photoshop", "and Callypso Studio."],
+    compareCols: ["Studio shoot", "Photoshop", "Callypso Studio"],
     compareRows: [
       { l: "Cost per set", a: "$300–600 / product", p: "Designer hourly", b: "Included in plan" },
       { l: "Turnaround", a: "2–5 days", p: "Hours", b: "~90 seconds" },
@@ -220,7 +220,7 @@ const content = {
       { l: "Store sync", a: "Manual upload", p: "Manual export", b: "One click" },
     ],
     promiseKicker: "The honest promise", promiseH: ["Stage the product.", "Never distort it."],
-    promiseBody: "Pixmint conditions on the photo you upload — color, shape and labels stay true. The scene and light change, your product doesn't. You review every shot before it touches your store.",
+    promiseBody: "Callypso Studio conditions on the photo you upload — color, shape and labels stay true. The scene and light change, your product doesn't. You review every shot before it touches your store.",
     promiseBullets: [
       "Your product's color, shape and labels are preserved as-is.",
       "Every shot passes your review before it goes live.",
@@ -235,8 +235,8 @@ const content = {
     ],
     faqKicker: "Good to know", faqH: "The short answers.",
     faq: [
-      { q: "Do I need API keys to try it?", a: "No. Pixmint boots in demo mode with a sample catalog and generated shots — click around immediately. Add your fal.ai and Shopify keys later to generate and sync for real." },
-      { q: "Will the shots actually look like my product?", a: "Yes — Pixmint conditions on your uploaded photo, so colors, shape and labels stay true. You review every shot before it touches your store." },
+      { q: "Do I need API keys to try it?", a: "No. Callypso Studio boots in demo mode with a sample catalog and generated shots — click around immediately. Add your fal.ai and Shopify keys later to generate and sync for real." },
+      { q: "Will the shots actually look like my product?", a: "Yes — Callypso Studio conditions on your uploaded photo, so colors, shape and labels stay true. You review every shot before it touches your store." },
       { q: "Can it push images to my store?", a: "Connect Shopify in Settings and approved shots sync to the matching product. Or just download the files and upload anywhere." },
       { q: "What formats can I export?", a: "Marketplace squares (1:1), PDP and social ratios (4:5, 9:16, 16:9), white-background cut-outs and 4K exports. The right size for every channel is one click away." },
       { q: "Can I use my own brand kit?", a: "Yes. Set your palette, props and mood once and every shot locks to that kit, so all your listings look like one brand." },
@@ -273,7 +273,7 @@ const content = {
 
     /* Backdrops gallery */
     bdKicker: "Scenes & backdrops", bdH: ["A library of scenes,", "ready and waiting."],
-    bdBody: "From marble to water, wood to neon — pick at a glance and Pixmint places your product in the scene.",
+    bdBody: "From marble to water, wood to neon — pick at a glance and Callypso Studio places your product in the scene.",
     backdrops: [
       { label: "Marble Studio", kind: "marble", hue: "250", emoji: "🧴" },
       { label: "White Sweep", kind: "studio", hue: "345", emoji: "👜" },
@@ -290,7 +290,7 @@ const content = {
     /* Workflow deep-dive + integrations */
     flowKicker: "The flow", flowH: ["Upload, pick,", "download."],
     flow: [
-      { n: "01", t: "Upload a product photo", b: "A single phone snap is enough; Pixmint resolves the product and the background." },
+      { n: "01", t: "Upload a product photo", b: "A single phone snap is enough; Callypso Studio resolves the product and the background." },
       { n: "02", t: "Pick the scene", b: "Click a backdrop from the library or describe your own — locked to your brand." },
       { n: "03", t: "Get the variants", b: "A set of variants, crops and ratios lands in front of you in seconds." },
       { n: "04", t: "Download or sync", b: "Download the ones you love, or push them straight to your store in one click." },
@@ -457,7 +457,7 @@ function SceneStudio({ lang }: { lang: "tr" | "en" }) {
 
 const useCaseIcons: Record<string, typeof Store> = { store: Store, hand: Hand, brand: BadgeCheck, agency: Briefcase };
 
-export default function PixmintLanding() {
+export default function LandingPage() {
   const { lang } = useLang();
   const c = content[lang];
   const [open, setOpen] = useState<number | null>(0);
@@ -476,7 +476,7 @@ export default function PixmintLanding() {
       {/* ── Nav ─────────────────────────────────────────────────────── */}
       <header className="sticky top-0 z-30 border-b border-border bg-background/85 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-6xl items-center px-5 lg:px-8">
-          <Link href="/" className="inline-flex items-center gap-2.5"><LogoMark className="h-8 w-8" /><span className="font-display text-lg font-semibold tracking-tight">Pixmint</span></Link>
+          <Link href="/" className="inline-flex items-center gap-2.5"><LogoMark className="h-8 w-8" /><span className="font-display text-lg font-semibold tracking-tight">Callypso Studio</span></Link>
           <nav className="ml-auto hidden items-center gap-7 text-sm text-muted-foreground md:flex">
             <a href="#try" className="hover:text-foreground transition-colors">{c.tryKicker}</a>
             <a href="#what" className="hover:text-foreground transition-colors">{c.nav[0]}</a>
@@ -851,14 +851,14 @@ export default function PixmintLanding() {
       <footer className="border-t border-border py-14">
         <div className="mx-auto grid max-w-6xl grid-cols-2 gap-8 px-5 text-sm text-muted-foreground md:grid-cols-5 lg:px-8">
           <div className="col-span-2">
-            <Link href="/" className="inline-flex items-center gap-2.5"><LogoMark className="h-7 w-7" /><span className="font-display text-base font-semibold tracking-tight text-foreground">Pixmint</span></Link>
+            <Link href="/" className="inline-flex items-center gap-2.5"><LogoMark className="h-7 w-7" /><span className="font-display text-base font-semibold tracking-tight text-foreground">Callypso Studio</span></Link>
             <p className="mt-3 max-w-xs text-[12.5px] leading-relaxed text-muted-foreground">{c.footTagline}</p>
             <div className="mt-4 flex flex-wrap gap-1.5">
               {(lang === "tr" ? ["Mermer", "Beyaz Fon", "Altın Saat", "Neon"] : ["Marble", "White Sweep", "Golden Hour", "Neon"]).map((tag) => (
                 <span key={tag} className="rounded-full bg-muted px-2.5 py-1 text-[11px] text-muted-foreground ring-1 ring-border">{tag}</span>
               ))}
             </div>
-            <p className="mt-4 text-[12px] text-muted-foreground/70">pixmint.studio · © 2026</p>
+            <p className="mt-4 text-[12px] text-muted-foreground/70">callypsostudio.com · © 2026</p>
           </div>
           <div>
             <p className="label-mono mb-3 text-muted-foreground">{lang === "tr" ? "Ürün" : "Product"}</p>
@@ -881,7 +881,7 @@ export default function PixmintLanding() {
           <div>
             <p className="label-mono mb-3 text-muted-foreground">{lang === "tr" ? "Şirket" : "Company"}</p>
             <ul className="space-y-1.5">
-              <li>hello@pixmint.studio</li>
+              <li>hello@callypsostudio.com</li>
               <li><Link href="/login" className="hover:text-foreground">{c.demo}</Link></li>
               <li>{lang === "tr" ? "Hakkında" : "About"}</li>
               <li>{lang === "tr" ? "Gizlilik" : "Privacy"}</li>

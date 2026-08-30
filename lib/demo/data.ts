@@ -1,8 +1,12 @@
 /**
- * Pixmint demo data — a DTC store's product catalog and the studio shots
- * generated from it. Labels are bilingual ({ tr, en }); the pages resolve them
- * to the active language. Product names / SKUs stay as-is (content). Wire
- * fal.ai + Shopify (run /setup) to generate shots and sync them for real.
+ * Callypso Studio demo data — a DTC store's product catalog and the sales
+ * creatives generated from it. Labels are bilingual ({ tr, en }); the pages
+ * resolve them to the active language. Product names / SKUs stay as-is
+ * (content). Wire fal.ai (run /setup) to generate creatives for real.
+ *
+ * TODO(real integration): Shopify/ikas product sync and Meta Ads push are not
+ * built in this first phase — approved creatives are exported (1:1/4:5/9:16)
+ * instead of pushed to a store.
  *
  * Scenes map to the `ScenePreset` union in components/shot-image.tsx, which
  * draws each tasteful gallery placeholder (gradient backdrop + product emoji).
@@ -26,7 +30,18 @@ export const kpis: Kpi[] = [
 export const heroKpis = kpis.slice(0, 4);
 export const extraKpis = kpis.slice(4);
 
-/* ── Scene presets (the studio "looks") ───────────────────────────────────── */
+/* ── Use cases (ready-made template categories) ───────────────────────────── */
+export type UseCase = "studio" | "lifestyle" | "instagram" | "meta-ads" | "ecommerce";
+export const useCaseLabels: Record<UseCase, L> = {
+  studio: { tr: "Studio", en: "Studio" },
+  lifestyle: { tr: "Lifestyle", en: "Lifestyle" },
+  instagram: { tr: "Instagram", en: "Instagram" },
+  "meta-ads": { tr: "Meta Ads", en: "Meta Ads" },
+  ecommerce: { tr: "E-ticaret", en: "E-commerce" },
+};
+export const useCases: UseCase[] = ["studio", "lifestyle", "instagram", "meta-ads", "ecommerce"];
+
+/* ── Scene templates (the studio "looks") ─────────────────────────────────── */
 export interface Scene {
   id: string;
   name: string;
@@ -36,15 +51,18 @@ export interface Scene {
   mood: L;
   emoji: string;
   shots: number;
+  useCases: UseCase[];
+  /** Template Lock: reuse this scene/light/composition on the next products. */
+  locked?: boolean;
 }
 
 export const scenes: Scene[] = [
-  { id: "white", name: "White Sweep", kind: "studio", hue: "345", surface: { tr: "Sonsuz beyaz, gölgesiz", en: "Infinity white, no shadow" }, mood: { tr: "Temiz, pazaryeri", en: "Clean, marketplace" }, emoji: "⬜", shots: 96 },
-  { id: "marble", name: "Marble Studio", kind: "marble", hue: "250", surface: { tr: "Carrara mermeri + yumuşak gölge", en: "Carrara marble + soft shadow" }, mood: { tr: "Premium, editöryel", en: "Premium, editorial" }, emoji: "🏛️", shots: 128 },
-  { id: "golden", name: "Golden Hour", kind: "outdoor", hue: "55", surface: { tr: "Güneşli teras, sıcak ışık", en: "Sunlit terrace, warm light" }, mood: { tr: "Sıcak, yaşanmış", en: "Warm, lived-in" }, emoji: "🌅", shots: 74 },
-  { id: "cafe", name: "Café Lifestyle", kind: "lifestyle", hue: "30", surface: { tr: "Meşe masa + el detayları", en: "Oak table + human touch" }, mood: { tr: "Hikâye anlatan", en: "Story-driven" }, emoji: "☕", shots: 52 },
-  { id: "linen", name: "Soft Linen", kind: "linen", hue: "75", surface: { tr: "Keten + kuru bitkiler", en: "Linen + dried botanicals" }, mood: { tr: "Hediye, sezonluk", en: "Gifting, seasonal" }, emoji: "🌾", shots: 38 },
-  { id: "neon", name: "Neon Noir", kind: "gradient", hue: "320", surface: { tr: "Gradyan ışık + cam yansıma", en: "Gradient glow + glass reflection" }, mood: { tr: "Kampanya, cesur", en: "Campaign, bold" }, emoji: "🌃", shots: 31 },
+  { id: "white", name: "White Sweep", kind: "studio", hue: "345", surface: { tr: "Sonsuz beyaz, gölgesiz", en: "Infinity white, no shadow" }, mood: { tr: "Temiz, pazaryeri", en: "Clean, marketplace" }, emoji: "⬜", shots: 96, useCases: ["studio", "ecommerce"] },
+  { id: "marble", name: "Marble Studio", kind: "marble", hue: "250", surface: { tr: "Carrara mermeri + yumuşak gölge", en: "Carrara marble + soft shadow" }, mood: { tr: "Premium, editöryel", en: "Premium, editorial" }, emoji: "🏛️", shots: 128, useCases: ["studio", "instagram", "ecommerce"], locked: true },
+  { id: "golden", name: "Golden Hour", kind: "outdoor", hue: "55", surface: { tr: "Güneşli teras, sıcak ışık", en: "Sunlit terrace, warm light" }, mood: { tr: "Sıcak, yaşanmış", en: "Warm, lived-in" }, emoji: "🌅", shots: 74, useCases: ["lifestyle", "instagram"] },
+  { id: "cafe", name: "Café Lifestyle", kind: "lifestyle", hue: "30", surface: { tr: "Meşe masa + el detayları", en: "Oak table + human touch" }, mood: { tr: "Hikâye anlatan", en: "Story-driven" }, emoji: "☕", shots: 52, useCases: ["lifestyle", "instagram"] },
+  { id: "linen", name: "Soft Linen", kind: "linen", hue: "75", surface: { tr: "Keten + kuru bitkiler", en: "Linen + dried botanicals" }, mood: { tr: "Hediye, sezonluk", en: "Gifting, seasonal" }, emoji: "🌾", shots: 38, useCases: ["lifestyle", "ecommerce"] },
+  { id: "neon", name: "Neon Noir", kind: "gradient", hue: "320", surface: { tr: "Gradyan ışık + cam yansıma", en: "Gradient glow + glass reflection" }, mood: { tr: "Kampanya, cesur", en: "Campaign, bold" }, emoji: "🌃", shots: 31, useCases: ["instagram", "meta-ads"] },
 ];
 
 /* ── Products (the catalog) ───────────────────────────────────────────────── */
@@ -117,25 +135,27 @@ export const genQueue: GenJob[] = [
 /* ── Activity feed ────────────────────────────────────────────────────────── */
 export interface DActivity { id: string; who: string; action: L; target: string; at: string; }
 export const activity: DActivity[] = [
-  { id: "a1", who: "Pixmint", action: { tr: "6 çekimi senkronladı:", en: "synced 6 shots to" }, target: "Aurora Linen Tote", at: "2026-06-13T09:10:00Z" },
+  { id: "a1", who: "Callypso Studio", action: { tr: "6 çekimi dışa aktardı:", en: "exported 6 creatives for" }, target: "Aurora Linen Tote", at: "2026-06-13T09:10:00Z" },
   { id: "a2", who: "Alex", action: { tr: "onayladı:", en: "approved the" }, target: "Marble Studio set", at: "2026-06-13T08:40:00Z" },
-  { id: "a3", who: "Pixmint", action: { tr: "üretti:", en: "generated 12 shots in" }, target: "Café Lifestyle", at: "2026-06-12T17:25:00Z" },
-  { id: "a4", who: "Pixmint", action: { tr: "fon temizledi:", en: "cut out backgrounds for" }, target: "Terra Mug — Sand", at: "2026-06-12T11:05:00Z" },
+  { id: "a3", who: "Callypso Studio", action: { tr: "üretti:", en: "generated 12 shots in" }, target: "Café Lifestyle", at: "2026-06-12T17:25:00Z" },
+  { id: "a4", who: "Callypso Studio", action: { tr: "fon temizledi:", en: "cut out backgrounds for" }, target: "Terra Mug — Sand", at: "2026-06-12T11:05:00Z" },
 ];
 
-/* ── Generate page: scene-recipe outputs (interactive) ────────────────────── */
+/* ── Generate page: 4 variations per generation (interactive) ─────────────── */
+export type ExportRatio = "1:1" | "4:5" | "9:16";
+export const exportRatios: ExportRatio[] = ["1:1", "4:5", "9:16"];
+
 export interface ShotRecipe {
   id: string;
   label: L;
-  ratio: "1:1" | "4:5" | "16:9";
+  ratio: ExportRatio;
 }
+/** Exactly 4 variations per Generate run — Studio/E-commerce, editorial, lifestyle, and Instagram/Meta Ads-ready. */
 export const shotRecipes: ShotRecipe[] = [
   { id: "g1", label: { tr: "Önden hero, yumuşak gölge", en: "Front hero, soft shadow" }, ratio: "1:1" },
-  { id: "g2", label: { tr: "45° açı, yansıtıcı zemin", en: "45° angle, reflective base" }, ratio: "1:1" },
-  { id: "g3", label: { tr: "Aksesuarlı flat-lay", en: "Flat-lay with props" }, ratio: "4:5" },
-  { id: "g4", label: { tr: "Sahnede yaşam tarzı", en: "Lifestyle in scene" }, ratio: "4:5" },
-  { id: "g5", label: { tr: "Makro doku detayı", en: "Macro texture detail" }, ratio: "1:1" },
-  { id: "g6", label: { tr: "Geniş banner kırpma", en: "Wide banner crop" }, ratio: "16:9" },
+  { id: "g2", label: { tr: "45° açı, yansıtıcı zemin", en: "45° angle, reflective base" }, ratio: "4:5" },
+  { id: "g3", label: { tr: "Sahnede yaşam tarzı", en: "Lifestyle in scene" }, ratio: "4:5" },
+  { id: "g4", label: { tr: "Dikey story/reel kırpma", en: "Vertical story/reel crop" }, ratio: "9:16" },
 ];
 
 /* ── Dashboard hero numbers ───────────────────────────────────────────────── */
@@ -188,4 +208,33 @@ export const credits = {
   cutouts: 188,
   variants: 96,
   resetLabel: { tr: "9 gün sonra yenilenir", en: "Renews in 9 days" } as L,
+};
+
+/* ── Brand Profile (colors, style, logo & visual preferences) ─────────────────
+ * TODO(real integration): read/write via Supabase once connected — for now
+ * this is the demo brand kit shown read-only in Settings → Brand Profile.
+ */
+export interface BrandProfile {
+  colors: { name: string; hex: string }[];
+  style: L[];
+  visualPreferences: L[];
+  logoText: string;
+}
+export const brandProfile: BrandProfile = {
+  colors: [
+    { name: "Primary", hex: "#c026a3" },
+    { name: "Accent", hex: "#f23ca0" },
+    { name: "Ink", hex: "#1c1230" },
+  ],
+  style: [
+    { tr: "Minimal", en: "Minimal" },
+    { tr: "Editöryel", en: "Editorial" },
+    { tr: "Sıcak ışık", en: "Warm light" },
+  ],
+  visualPreferences: [
+    { tr: "Mermer & keten yüzeyler", en: "Marble & linen surfaces" },
+    { tr: "Yumuşak gölgeler", en: "Soft shadows" },
+    { tr: "Doğal aksesuarlar", en: "Natural props" },
+  ],
+  logoText: "Cs",
 };
