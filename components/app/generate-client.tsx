@@ -250,13 +250,18 @@ export function GenerateClient({ falConnected }: { falConnected: boolean }) {
           {/* Scene picker */}
           <div className="rounded-2xl border border-border bg-card p-5 shadow-soft">
             <p className="label-mono text-muted-foreground">{mm.step2}</p>
-            <div className="mt-3 space-y-2">
+            <div className="mt-3 max-h-[420px] space-y-2 overflow-y-auto pr-1">
               {scenes.map((s) => (
                 <button key={s.id} onClick={() => pickScene(s.id)}
                   className={cn("flex w-full items-center gap-3 rounded-xl border p-2 text-left transition",
                     sceneId === s.id ? "border-primary bg-primary/5" : "border-border hover:bg-muted")}>
                   <span className="h-10 w-12 shrink-0 overflow-hidden rounded-lg ring-1 ring-border">
-                    <ShotImage scene={s.kind} hue={s.hue} emoji={s.emoji} className="h-full w-full" />
+                    {s.thumbnail ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={s.thumbnail} alt={s.name} className="h-full w-full object-cover" />
+                    ) : (
+                      <ShotImage scene={s.kind} hue={s.hue} emoji={s.emoji} className="h-full w-full" />
+                    )}
                   </span>
                   <span className="min-w-0 flex-1">
                     <span className="block truncate text-sm font-medium">{s.name}</span>

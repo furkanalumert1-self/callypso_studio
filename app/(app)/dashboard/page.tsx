@@ -210,7 +210,12 @@ export default function Dashboard() {
           <div className="mt-4 grid grid-cols-2 gap-3">
             {scenes.slice(0, 6).map((sc) => (
               <Link key={sc.id} href="/scenes" className="group overflow-hidden rounded-xl ring-1 ring-border transition hover:-translate-y-0.5 hover:shadow-pop">
-                <ShotImage scene={sc.kind} hue={sc.hue} emoji={sc.emoji} className="aspect-[5/3] w-full" />
+                {sc.thumbnail ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={sc.thumbnail} alt={sc.name} className="aspect-[5/3] w-full object-cover" />
+                ) : (
+                  <ShotImage scene={sc.kind} hue={sc.hue} emoji={sc.emoji} className="aspect-[5/3] w-full" />
+                )}
                 <div className="flex items-center justify-between px-2.5 py-2">
                   <p className="truncate text-[12px] font-medium">{sc.name}</p>
                   <span className="text-[10px] tabular-nums text-muted-foreground">{sc.shots}</span>

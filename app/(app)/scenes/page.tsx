@@ -9,7 +9,6 @@ import { useLang } from "@/components/i18n/language-provider";
 import { products, scenes as seedScenes, useCases, useCaseLabels, type UseCase, type Scene } from "@/lib/demo/data";
 import { cn } from "@/lib/utils";
 import { toast } from "@/components/demo-toast";
-import { TemplateGallery } from "@/components/app/template-gallery";
 
 export default function ScenesPage() {
   const { lang, t } = useLang();
@@ -89,7 +88,12 @@ export default function ScenesPage() {
               active === s.id ? "border-primary ring-2 ring-primary" : "border-border")}>
             <button onClick={() => setActive(s.id)} className="block w-full text-left">
               <div className="relative">
-                <ShotImage scene={s.kind} hue={s.hue} emoji={s.emoji} className="aspect-[16/9] w-full" />
+                {s.thumbnail ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={s.thumbnail} alt={s.name} className="aspect-[16/9] w-full object-cover" />
+                ) : (
+                  <ShotImage scene={s.kind} hue={s.hue} emoji={s.emoji} className="aspect-[16/9] w-full" />
+                )}
                 {active === s.id && (
                   <span className="absolute right-3 top-3 grid h-7 w-7 place-items-center rounded-full bg-primary text-primary-foreground shadow"><Check className="h-4 w-4" /></span>
                 )}
@@ -147,9 +151,6 @@ export default function ScenesPage() {
           ))}
         </div>
       </section>
-
-      {/* Expanded template gallery — 48+ templates, fal.ai + Supabase backed */}
-      <TemplateGallery />
     </div>
   );
 }
