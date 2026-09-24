@@ -115,7 +115,7 @@ export const appConfig: AppConfig = {
     {
       key: "supabase",
       name: "Supabase",
-      envVars: ["NEXT_PUBLIC_SUPABASE_URL", "NEXT_PUBLIC_SUPABASE_ANON_KEY"],
+      envVars: ["NEXT_PUBLIC_SUPABASE_URL", "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY"],
       required: false,
       docsUrl: "https://supabase.com/dashboard/project/_/settings/api",
       purpose: "Stores products, brand profiles, locked templates and generated creatives. Without it, runs in demo mode.",

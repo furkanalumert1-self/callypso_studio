@@ -2,12 +2,15 @@
 
 import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { Bell, Search } from "lucide-react";
+import { Bell, Search, RotateCcw } from "lucide-react";
 import appConfig from "@/app.config";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { LanguageToggle } from "@/components/ui/language-toggle";
+import { Badge } from "@/components/ui/badge";
 import { useLang } from "@/components/i18n/language-provider";
 import { toast } from "@/components/demo-toast";
+import { isDemo } from "@/lib/demo-mode";
+import { resetDemoData } from "@/lib/data";
 
 export function Topbar() {
   const pathname = usePathname();
@@ -24,13 +27,24 @@ export function Topbar() {
     router.push(`/products?q=${encodeURIComponent(query.trim())}`);
   }
 
+  function handleReset() {
+    resetDemoData();
+    toast(lang === "tr" ? "Demo: veriler sıfırlandı." : "Demo: data reset.");
+  }
+
   return (
     <header className="sticky top-0 z-20 flex h-16 items-center gap-4 border-b border-border bg-background/80 px-5 backdrop-blur">
       <h1 className="font-display text-lg font-semibold tracking-tight">
         {current ? t(current.label) : ""}
       </h1>
+      {isDemo && <Badge tone="warning">{lang === "tr" ? "Demo Modu" : "Demo Mode"}</Badge>}
 
       <div className="ml-auto flex items-center gap-1.5">
+        {isDemo && (
+          <button onClick={handleReset} className="hidden items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground sm:flex">
+            <RotateCcw className="h-3.5 w-3.5" /> {lang === "tr" ? "Demo verilerini sıfırla" : "Reset demo data"}
+          </button>
+        )}
         <form onSubmit={submitSearch} className="hidden h-9 w-64 items-center gap-2 rounded-lg border border-border bg-card px-3 text-sm text-muted-foreground lg:flex">
           <Search className="h-4 w-4" />
           <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder={ui.search}

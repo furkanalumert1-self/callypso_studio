@@ -9,6 +9,7 @@ import { useLang } from "@/components/i18n/language-provider";
 import { products, scenes as seedScenes, useCases, useCaseLabels, type UseCase, type Scene } from "@/lib/demo/data";
 import { cn } from "@/lib/utils";
 import { toast } from "@/components/demo-toast";
+import { TemplateGallery } from "@/components/app/template-gallery";
 
 export default function ScenesPage() {
   const { lang, t } = useLang();
@@ -146,6 +147,9 @@ export default function ScenesPage() {
           ))}
         </div>
       </section>
+
+      {/* Expanded template gallery — 48+ templates, fal.ai + Supabase backed */}
+      <TemplateGallery />
     </div>
   );
 }
