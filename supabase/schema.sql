@@ -48,8 +48,28 @@ create policy "generations_insert_anon"
   to anon, authenticated
   with check (true);
 
--- ── Seed data: 48 scene templates across 12 categories ─────────────────────
+-- ── Seed data: 68 scene templates across 13 categories (E-commerce first) ──
 insert into scene_templates (id, name, category, base_prompt, thumbnail, default_variations) values
+  ('ecom-marketplace-white', 'Marketplace White BG', 'E-commerce', 'product on a pure white background, centered, no shadow, meets Amazon/Etsy/Trendyol listing requirements', 'https://v3b.fal.media/files/b/0aabc155/3SVZ3l5RHBtyEOktAAnNY.jpg', null),
+  ('ecom-pdp-hero-banner', 'PDP Hero Banner', 'E-commerce', 'wide lifestyle hero banner of the product for a product detail page, cinematic lighting', 'https://v3b.fal.media/files/b/0aabc155/H3x_z4CmPljRSiefhPBTQ.jpg', null),
+  ('ecom-instagram-grid', 'Instagram Grid Square', 'E-commerce', 'product styled for an Instagram feed post, square crop, on-trend aesthetic, soft natural light', 'https://v3b.fal.media/files/b/0aabc155/N24MVEWjaOxBVQUuqG5Ww.jpg', null),
+  ('ecom-meta-ads-carousel', 'Meta Ads Carousel', 'E-commerce', 'bold, colorful ad-style scene for the product with clear negative space for ad copy overlay', 'https://v3b.fal.media/files/b/0aabc155/07nvyuLWcymER6tJ9F20k.jpg', null),
+  ('ecom-unboxing', 'Unboxing Moment', 'E-commerce', 'hands opening the product''s package, excited unboxing moment, warm natural light', 'https://v3b.fal.media/files/b/0aabc155/SlejNTvLc2sSDlS0qBKMA.jpg', null),
+  ('ecom-bundle-flatlay', 'Bundle Kit Flat Lay', 'E-commerce', 'overhead flat lay of the product bundled with matching accessories, neatly arranged', 'https://v3b.fal.media/files/b/0aabc155/bHGyb1rrC9zVT4OUYA4zF.jpg', null),
+  ('ecom-size-comparison', 'Size Comparison', 'E-commerce', 'product placed next to a common everyday object for a clear sense of scale', 'https://v3b.fal.media/files/b/0aabc155/tFli3DhlAjLUOu_kVQj9X.jpg', null),
+  ('ecom-before-after', 'Before / After Split', 'E-commerce', 'split-screen before and after comparison showing the product''s result or use', 'https://v3b.fal.media/files/b/0aabc155/lDswe6mBinkwscW6xiWHi.jpg', null),
+  ('ecom-ghost-mannequin', 'Ghost Mannequin', 'E-commerce', 'apparel product shot with an invisible ghost-mannequin effect, clean studio background', 'https://v3b.fal.media/files/b/0aabc155/IVvO35Q4k1sYgNmcL1-ag.jpg', null),
+  ('ecom-360-turntable', '360° Turntable Hero', 'E-commerce', 'product on a rotating turntable, three-quarter hero angle, studio lighting', 'https://v3b.fal.media/files/b/0aabc155/dlfVd32q4opXzqtXKJcYS.jpg', null),
+  ('ecom-gift-wrapped', 'Gift Wrapped', 'E-commerce', 'product wrapped as a gift with ribbon and a small gift tag, soft festive light', 'https://v3b.fal.media/files/b/0aabc155/xHNSjZXfja8ebLYCmhEbg.jpg', null),
+  ('ecom-subscription-box', 'Subscription Box Reveal', 'E-commerce', 'opened subscription box with the product nestled inside tissue paper', 'https://v3b.fal.media/files/b/0aabc155/1U9VQoIsuhuQZHucFopDm.jpg', null),
+  ('ecom-ingredient-flatlay', 'Ingredient / Material Flat Lay', 'E-commerce', 'product surrounded by its raw ingredients or materials, overhead flat lay', 'https://v3b.fal.media/files/b/0aabc156/MpaZqwHN6Jlx7x4d0NdWm.jpg', null),
+  ('ecom-on-the-go', 'On-the-Go Lifestyle', 'E-commerce', 'product being carried or used outdoors as part of a daily on-the-go lifestyle', 'https://v3b.fal.media/files/b/0aabc156/Mco33c96e-U-3_sEEHAod.jpg', null),
+  ('ecom-home-office', 'Home Office Desk', 'E-commerce', 'product styled on a tidy home-office desk setup, soft daylight', 'https://v3b.fal.media/files/b/0aabc156/TS5vDGLoeMKMDN10wXzWN.jpg', null),
+  ('ecom-sale-badge', 'Discount Sale Campaign', 'E-commerce', 'bold sale campaign scene for the product with dramatic accent color and copy space for a discount badge', 'https://v3b.fal.media/files/b/0aabc156/W1-jMHVKxQYV-0Qk6hYIN.jpg', null),
+  ('ecom-new-arrival', 'New Arrival Spotlight', 'E-commerce', 'clean spotlight scene introducing the product as a new arrival, single dramatic light source', 'https://v3b.fal.media/files/b/0aabc156/Wo4QmYMbv1MPpNg7p3cg6.jpg', null),
+  ('ecom-influencer-flatlay', 'Influencer Style Flat Lay', 'E-commerce', 'trendy influencer-style flat lay of the product with coffee, phone and lifestyle props', 'https://v3b.fal.media/files/b/0aabc156/hGevTPL4KaPCn8UsseXWn.jpg', null),
+  ('ecom-valentines', 'Valentine''s Gift Scene', 'E-commerce', 'romantic Valentine''s Day gifting scene for the product in soft red and pink tones', 'https://v3b.fal.media/files/b/0aabc156/J8XfZVR2qRbJbN-jYjOmz.jpg', null),
+  ('ecom-back-to-school', 'Back to School Scene', 'E-commerce', 'bright, energetic back-to-school campaign scene for the product', 'https://v3b.fal.media/files/b/0aabc156/vHjDusHOgR-POd9I1eHEf.jpg', null),
   ('prod-white-sweep', 'White Sweep Studio', 'Product', 'product on an infinity white sweep background, no shadow, clean marketplace listing shot', null, null),
   ('prod-marble', 'Marble Pedestal', 'Product', 'product on a polished marble pedestal with soft reflection', null, null),
   ('prod-floating', 'Floating Product', 'Product', 'product levitating with a soft drop shadow on a gradient backdrop', null, null),
@@ -101,4 +121,5 @@ insert into scene_templates (id, name, category, base_prompt, thumbnail, default
 on conflict (id) do update set
   name = excluded.name,
   category = excluded.category,
-  base_prompt = excluded.base_prompt;
+  base_prompt = excluded.base_prompt,
+  thumbnail = excluded.thumbnail;

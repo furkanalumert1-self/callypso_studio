@@ -35,8 +35,8 @@ export async function listTemplates(): Promise<SceneTemplateSeed[]> {
     try {
       const { data, error } = await withTimeout(supabase.from("scene_templates").select("*").order("category"));
       if (!error && data && data.length > 0) {
-        return data.map((r: { id: string; name: string; category: TemplateCategory; base_prompt: string }) => ({
-          id: r.id, name: r.name, category: r.category, basePrompt: r.base_prompt,
+        return data.map((r: { id: string; name: string; category: TemplateCategory; base_prompt: string; thumbnail?: string | null }) => ({
+          id: r.id, name: r.name, category: r.category, basePrompt: r.base_prompt, thumbnail: r.thumbnail ?? undefined,
         }));
       }
     } catch {

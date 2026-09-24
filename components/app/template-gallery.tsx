@@ -39,14 +39,14 @@ export function TemplateGallery() {
 
   const m = {
     tr: {
-      title: "Şablon Galerisi", sub: `${templates.length} şablon · 12 kategori`, all: "Tüm kategoriler",
+      title: "Şablon Galerisi", sub: `${templates.length} şablon · ${TEMPLATE_CATEGORIES.length} kategori`, all: "Tüm kategoriler",
       search: "Şablon ara…", randomize: "Rastgele", generate: "Varyasyon üret", generating: "Üretiliyor…",
       count: "Adet", recent: "Bu şablon için son üretimler", noHistory: "Henüz üretim yok.",
       lighting: "Işık", angle: "Açı", style: "Stil", mood: "Hava", palette: "Palet", time: "Zaman", ratio: "Oran",
       failed: "Demo: bazı varyasyonlar üretilemedi.",
     },
     en: {
-      title: "Template Gallery", sub: `${templates.length} templates · 12 categories`, all: "All categories",
+      title: "Template Gallery", sub: `${templates.length} templates · ${TEMPLATE_CATEGORIES.length} categories`, all: "All categories",
       search: "Search templates…", randomize: "Randomize", generate: "Generate variations", generating: "Generating…",
       count: "Count", recent: "Recent generations for this template", noHistory: "No generations yet.",
       lighting: "Lighting", angle: "Angle", style: "Style", mood: "Mood", palette: "Palette", time: "Time", ratio: "Ratio",
@@ -139,10 +139,22 @@ export function TemplateGallery() {
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
         {shown.map((t) => (
           <button key={t.id} onClick={() => selectTemplate(t)}
-            className={cn("rounded-xl border p-3 text-left text-sm transition-colors",
+            className={cn("overflow-hidden rounded-xl border text-left text-sm transition-colors",
               selectedId === t.id ? "border-primary bg-primary/5" : "border-border bg-card hover:bg-muted")}>
-            <p className="truncate font-medium">{t.name}</p>
-            <p className="mt-0.5 truncate text-[11px] text-muted-foreground">{t.category}</p>
+            <div className="aspect-square w-full overflow-hidden bg-muted">
+              {t.thumbnail ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={t.thumbnail} alt={t.name} className="h-full w-full object-cover" />
+              ) : (
+                <div className="grid h-full w-full place-items-center text-muted-foreground/40">
+                  <Sparkles className="h-5 w-5" />
+                </div>
+              )}
+            </div>
+            <div className="p-3">
+              <p className="truncate font-medium">{t.name}</p>
+              <p className="mt-0.5 truncate text-[11px] text-muted-foreground">{t.category}</p>
+            </div>
           </button>
         ))}
       </div>
