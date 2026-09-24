@@ -1,12 +1,13 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Sparkles, Upload, Download, Lock, Check, Info, RefreshCw, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ShotImage } from "@/components/shot-image";
 import { useLang } from "@/components/i18n/language-provider";
-import { products, scenes, shotRecipes, type ExportRatio } from "@/lib/demo/data";
+import { products as SEED_PRODUCTS, scenes, shotRecipes, type Product, type ExportRatio } from "@/lib/demo/data";
+import { listProducts } from "@/lib/products-store";
 import { cn } from "@/lib/utils";
 import { toast } from "@/components/demo-toast";
 
@@ -30,7 +31,8 @@ function buildPrompt(productTitle: string, sceneName: string, sceneMood: string,
 
 export function GenerateClient({ falConnected }: { falConnected: boolean }) {
   const { lang, t } = useLang();
-  const [productId, setProductId] = useState(products[0].id);
+  const [products, setProducts] = useState<Product[]>(SEED_PRODUCTS);
+  const [productId, setProductId] = useState(SEED_PRODUCTS[0].id);
   const [sceneId, setSceneId] = useState(scenes[1].id);
   const [generated, setGenerated] = useState(true);
   const [busy, setBusy] = useState(false);
@@ -41,6 +43,10 @@ export function GenerateClient({ falConnected }: { falConnected: boolean }) {
 
   const product = products.find((p) => p.id === productId)!;
   const scene = scenes.find((s) => s.id === sceneId)!;
+
+  useEffect(() => {
+    Promise.resolve(listProducts()).then(setProducts);
+  }, []);
 
   const dict = {
     tr: {
@@ -81,6 +87,7 @@ export function GenerateClient({ falConnected }: { falConnected: boolean }) {
 
   function pickProduct(id: string) {
     setProductId(id);
+    setSourcePhoto(products.find((p) => p.id === id)?.photo ?? null);
     resetResult();
   }
 
@@ -205,9 +212,14 @@ export function GenerateClient({ falConnected }: { falConnected: boolean }) {
               {products.map((p) => (
                 <button key={p.id} onClick={() => pickProduct(p.id)}
                   title={p.title}
-                  className={cn("grid aspect-square place-items-center rounded-xl text-2xl ring-1 transition",
+                  className={cn("grid aspect-square place-items-center overflow-hidden rounded-xl text-2xl ring-1 transition",
                     productId === p.id ? "bg-primary/10 ring-2 ring-primary" : "bg-muted ring-border hover:bg-secondary")}>
-                  {p.emoji}
+                  {p.photo ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={p.photo} alt={p.title} className="h-full w-full object-cover" />
+                  ) : (
+                    p.emoji
+                  )}
                 </button>
               ))}
             </div>

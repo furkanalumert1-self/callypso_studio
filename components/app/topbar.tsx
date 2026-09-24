@@ -11,6 +11,7 @@ import { useLang } from "@/components/i18n/language-provider";
 import { toast } from "@/components/demo-toast";
 import { isDemo } from "@/lib/demo-mode";
 import { resetDemoData } from "@/lib/data";
+import { resetLocalProducts } from "@/lib/products-store";
 
 export function Topbar() {
   const pathname = usePathname();
@@ -29,7 +30,9 @@ export function Topbar() {
 
   function handleReset() {
     resetDemoData();
+    resetLocalProducts();
     toast(lang === "tr" ? "Demo: veriler sıfırlandı." : "Demo: data reset.");
+    setTimeout(() => window.location.reload(), 600);
   }
 
   return (

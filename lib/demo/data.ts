@@ -75,6 +75,8 @@ export interface Product {
   hue: string;
   shots: number;
   synced: boolean;
+  /** Data URL of a user-uploaded product photo. Falls back to the emoji tile when absent. */
+  photo?: string;
 }
 
 export const products: Product[] = [
