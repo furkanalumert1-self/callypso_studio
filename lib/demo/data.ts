@@ -63,6 +63,8 @@ export const scenes: Scene[] = [
   { id: "cafe", name: "Café Lifestyle", kind: "lifestyle", hue: "30", surface: { tr: "Meşe masa + el detayları", en: "Oak table + human touch" }, mood: { tr: "Hikâye anlatan", en: "Story-driven" }, emoji: "☕", shots: 52, useCases: ["lifestyle", "instagram"] },
   { id: "linen", name: "Soft Linen", kind: "linen", hue: "75", surface: { tr: "Keten + kuru bitkiler", en: "Linen + dried botanicals" }, mood: { tr: "Hediye, sezonluk", en: "Gifting, seasonal" }, emoji: "🌾", shots: 38, useCases: ["lifestyle", "ecommerce"] },
   { id: "neon", name: "Neon Noir", kind: "gradient", hue: "320", surface: { tr: "Gradyan ışık + cam yansıma", en: "Gradient glow + glass reflection" }, mood: { tr: "Kampanya, cesur", en: "Campaign, bold" }, emoji: "🌃", shots: 31, useCases: ["instagram", "meta-ads"] },
+  { id: "kraft", name: "Kraft Paper", kind: "studio", hue: "35", surface: { tr: "Kraft kağıt + doğal doku", en: "Kraft paper + natural texture" }, mood: { tr: "Sürdürülebilir, sıcak", en: "Sustainable, warm" }, emoji: "📦", shots: 27, useCases: ["ecommerce", "studio"] },
+  { id: "velvet", name: "Velvet Pop", kind: "gradient", hue: "280", surface: { tr: "Doygun renk fonu + yumuşak spot ışık", en: "Saturated color backdrop + soft spotlight" }, mood: { tr: "Canlı, dikkat çekici", en: "Vivid, eye-catching" }, emoji: "🟣", shots: 19, useCases: ["instagram", "meta-ads"] },
 ];
 
 /* ── Products (the catalog) ───────────────────────────────────────────────── */

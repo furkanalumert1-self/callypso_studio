@@ -11,6 +11,7 @@ import { ShotImage } from "@/components/shot-image";
 import { useLang } from "@/components/i18n/language-provider";
 import { type Product } from "@/lib/demo/data";
 import { listProducts, addProduct as addProductToStore } from "@/lib/products-store";
+import { fileToResizedDataUrl } from "@/lib/image-utils";
 import { cn, formatMoney } from "@/lib/utils";
 import { toast } from "@/components/demo-toast";
 
@@ -82,9 +83,9 @@ function ProductsPageInner() {
   function handlePhotoChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
-    const reader = new FileReader();
-    reader.onload = () => setNewPhoto(typeof reader.result === "string" ? reader.result : null);
-    reader.readAsDataURL(file);
+    fileToResizedDataUrl(file).then(setNewPhoto).catch(() => {
+      toast(lang === "tr" ? "Demo: fotoğraf okunamadı." : "Demo: could not read the photo.");
+    });
   }
 
   function submitAddProduct() {

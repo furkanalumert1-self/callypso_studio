@@ -8,6 +8,7 @@ import { ShotImage } from "@/components/shot-image";
 import { useLang } from "@/components/i18n/language-provider";
 import { products as SEED_PRODUCTS, scenes, shotRecipes, type Product, type ExportRatio } from "@/lib/demo/data";
 import { listProducts } from "@/lib/products-store";
+import { fileToResizedDataUrl } from "@/lib/image-utils";
 import { cn } from "@/lib/utils";
 import { toast } from "@/components/demo-toast";
 
@@ -17,14 +18,24 @@ const ratioClass: Record<string, string> = {
   "9:16": "aspect-[9/16]",
 };
 
-/** Product Lock is passed to fal.ai as an instruction, best-effort, since
- * flux/schnell is text-to-image, not a pixel-preserving image editor. */
+/** No source photo: best-effort text-to-image description (fal-ai/flux/schnell). */
 function buildPrompt(productTitle: string, sceneName: string, sceneMood: string, variationLabel: string): string {
   return [
     `Professional e-commerce product photography of "${productTitle}".`,
     `Scene: ${sceneName} — ${sceneMood}.`,
     `Shot style: ${variationLabel}.`,
     "Keep the product's logo, text, color, shape and packaging unchanged (Product Lock); only the scene, lighting and composition change.",
+    "Studio quality, sharp focus, sales-ready creative.",
+  ].join(" ");
+}
+
+/** Real source photo: an edit instruction for fal-ai/flux-pro/kontext, which
+ * conditions on the actual uploaded pixels instead of a text description. */
+function buildEditInstruction(sceneName: string, sceneMood: string, variationLabel: string): string {
+  return [
+    `Place this exact product into a new scene: ${sceneName} — ${sceneMood}.`,
+    `Shot style: ${variationLabel}.`,
+    "Keep the product itself completely unchanged — same logo, text, color, shape and packaging (Product Lock). Only change the background, scene, lighting and composition.",
     "Studio quality, sharp focus, sales-ready creative.",
   ].join(" ");
 }
@@ -61,6 +72,8 @@ export function GenerateClient({ falConnected }: { falConnected: boolean }) {
       genericError: "fal.ai üretimi başarısız oldu, önizleme gösteriliyor.",
       lockedTo: "markaya kilitli", scenePicked: "Seçili sahne",
       productLock: "Ürün Kilidi aktif", productLockHint: "Logo, yazı, renk, şekil ve ambalaj korunur.",
+      productLockPhoto: "Gerçek fotoğrafın üzerinde düzenleniyor (fal.ai Kontext).",
+      productLockNoPhoto: "Fotoğraf yüklenmedi — yalnızca ürün adına göre metinden üretim yapılır.",
       aiTag: "fal.ai",
     },
     en: {
@@ -75,6 +88,8 @@ export function GenerateClient({ falConnected }: { falConnected: boolean }) {
       genericError: "fal.ai generation failed, showing preview instead.",
       lockedTo: "locked to brand", scenePicked: "Selected scene",
       productLock: "Product Lock active", productLockHint: "Logo, text, color, shape and packaging stay unchanged.",
+      productLockPhoto: "Editing your real photo directly (fal.ai Kontext).",
+      productLockNoPhoto: "No photo uploaded — generating from the product name as text only.",
       aiTag: "fal.ai",
     },
   } as const;
@@ -103,9 +118,9 @@ export function GenerateClient({ falConnected }: { falConnected: boolean }) {
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
-    const reader = new FileReader();
-    reader.onload = () => setSourcePhoto(typeof reader.result === "string" ? reader.result : null);
-    reader.readAsDataURL(file);
+    fileToResizedDataUrl(file).then(setSourcePhoto).catch(() => {
+      toast(lang === "tr" ? "Demo: fotoğraf okunamadı." : "Demo: could not read the photo.");
+    });
   }
 
   async function generate() {
@@ -123,11 +138,13 @@ export function GenerateClient({ falConnected }: { falConnected: boolean }) {
     const sceneMood = t(scene.mood);
     const results = await Promise.allSettled(
       shotRecipes.map(async (r) => {
-        const prompt = buildPrompt(product.title, scene.name, sceneMood, t(r.label));
+        const prompt = sourcePhoto
+          ? buildEditInstruction(scene.name, sceneMood, t(r.label))
+          : buildPrompt(product.title, scene.name, sceneMood, t(r.label));
         const res = await fetch("/api/generate-image", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ prompt, ratio: r.ratio as ExportRatio }),
+          body: JSON.stringify({ prompt, ratio: r.ratio as ExportRatio, sourceImage: sourcePhoto ?? undefined }),
         });
         const data = await res.json();
         if (!res.ok) throw new Error(data?.error ?? `HTTP ${res.status}`);
@@ -201,7 +218,11 @@ export function GenerateClient({ falConnected }: { falConnected: boolean }) {
             </Button>
             <p className="mt-3 flex items-start gap-1.5 rounded-lg bg-muted px-3 py-2 text-[11px] text-muted-foreground">
               <Lock className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary" />
-              <span><span className="font-medium text-foreground">{mm.productLock}</span> · {mm.productLockHint}</span>
+              <span>
+                <span className="font-medium text-foreground">{mm.productLock}</span> · {mm.productLockHint}
+                <br />
+                {sourcePhoto ? mm.productLockPhoto : mm.productLockNoPhoto}
+              </span>
             </p>
           </div>
 
