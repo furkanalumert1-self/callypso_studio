@@ -6,13 +6,15 @@ import { Plus, Sparkles, Check, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ShotImage } from "@/components/shot-image";
 import { useLang } from "@/components/i18n/language-provider";
-import { products, scenes, useCases, useCaseLabels, type UseCase } from "@/lib/demo/data";
+import { products, scenes as seedScenes, useCases, useCaseLabels, type UseCase, type Scene } from "@/lib/demo/data";
 import { cn } from "@/lib/utils";
+import { toast } from "@/components/demo-toast";
 
 export default function ScenesPage() {
   const { lang, t } = useLang();
-  const [active, setActive] = useState(scenes[1].id);
-  const [lockedIds, setLockedIds] = useState<string[]>(scenes.filter((s) => s.locked).map((s) => s.id));
+  const [scenes, setScenes] = useState<Scene[]>(seedScenes);
+  const [active, setActive] = useState(seedScenes[1].id);
+  const [lockedIds, setLockedIds] = useState<string[]>(seedScenes.filter((s) => s.locked).map((s) => s.id));
   const [useCaseFilter, setUseCaseFilter] = useState<UseCase | "all">("all");
   const scene = scenes.find((s) => s.id === active)!;
   const shown = scenes.filter((s) => useCaseFilter === "all" || s.useCases.includes(useCaseFilter));
@@ -30,14 +32,27 @@ export default function ScenesPage() {
       add: "Şablon oluştur", shots: "çekim", surface: "Yüzey", mood: "Hava", all: "Tümü",
       preview: "kataloğunda", useScene: "Bu şablonda üret", locked: "Markaya kilitli",
       lockTemplate: "Şablonu kilitle", unlockTemplate: "Kilidi kaldır", templateLocked: "Kilitli",
+      added: "Demo: yeni şablon oluşturuldu.", newName: "Yeni Şablon",
     },
     en: {
       title: "Scene Templates", sub: "On-brand scene, light & composition templates. Lock the ones you like and reuse them on your next products.",
       add: "Create template", shots: "shots", surface: "Surface", mood: "Mood", all: "All",
       preview: "across your catalog", useScene: "Generate in this template", locked: "Locked to brand",
       lockTemplate: "Lock this template", unlockTemplate: "Unlock template", templateLocked: "Locked",
+      added: "Demo: new template created.", newName: "New Template",
     },
   }[lang];
+
+  function addTemplate() {
+    const id = `s${Date.now()}`;
+    setScenes((prev) => [
+      ...prev,
+      { id, name: `${m.newName} ${prev.length + 1}`, kind: "studio", hue: "200",
+        surface: { tr: "Özel yüzey", en: "Custom surface" }, mood: { tr: "Yeni", en: "New" },
+        emoji: "🆕", shots: 0, useCases: ["studio"] },
+    ]);
+    toast(m.added);
+  }
 
   return (
     <div className="mx-auto max-w-7xl space-y-6">
@@ -46,7 +61,7 @@ export default function ScenesPage() {
           <h2 className="font-display text-2xl font-semibold tracking-tight">{m.title}</h2>
           <p className="text-sm text-muted-foreground">{m.sub}</p>
         </div>
-        <Button className="gap-2"><Plus className="h-4 w-4" /> {m.add}</Button>
+        <Button onClick={addTemplate} className="gap-2"><Plus className="h-4 w-4" /> {m.add}</Button>
       </div>
 
       {/* Use-case filter: Studio, Lifestyle, Instagram, Meta Ads, E-commerce */}

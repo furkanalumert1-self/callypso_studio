@@ -8,6 +8,7 @@ import { ShotImage } from "@/components/shot-image";
 import { useLang } from "@/components/i18n/language-provider";
 import { products, scenes, shotRecipes, type ExportRatio } from "@/lib/demo/data";
 import { cn } from "@/lib/utils";
+import { toast } from "@/components/demo-toast";
 
 const ratioClass: Record<string, string> = {
   "1:1": "aspect-square",
@@ -137,6 +138,35 @@ export function GenerateClient({ falConnected }: { falConnected: boolean }) {
     setGenerated(true);
   }
 
+  function approveAll() {
+    toast(lang === "tr" ? "Demo: 4 varyasyon onaylandı." : "Demo: 4 variations approved.");
+  }
+
+  function downloadImage(url: string | null, label: string) {
+    if (!url) {
+      toast(lang === "tr" ? "Demo: bu varyasyon için indirilecek dosya yok." : "Demo: no file to download for this variation.");
+      return;
+    }
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${label.replace(/\s+/g, "-").toLowerCase()}.jpg`;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  }
+
+  function exportAll() {
+    const real = images.filter(Boolean) as string[];
+    if (real.length === 0) {
+      toast(lang === "tr" ? "Demo: dışa aktarma simüle edildi (gerçek dosya yok)." : "Demo: export simulated (no real files).");
+      return;
+    }
+    real.forEach((url, i) => downloadImage(url, `${product.title}-${i + 1}`));
+    toast(lang === "tr" ? `Demo: ${real.length} kreatif dışa aktarıldı.` : `Demo: exported ${real.length} creatives.`);
+  }
+
   return (
     <div className="mx-auto max-w-7xl space-y-6">
       <div>
@@ -219,9 +249,9 @@ export function GenerateClient({ falConnected }: { falConnected: boolean }) {
               <span className="text-xs text-muted-foreground">· {mm.lockedTo}</span>
             </div>
             <div className="flex gap-2">
-              <Button variant="outline" size="sm" className="gap-1.5"><Check className="h-3.5 w-3.5" /> {mm.approveAll}</Button>
+              <Button variant="outline" size="sm" className="gap-1.5" onClick={approveAll}><Check className="h-3.5 w-3.5" /> {mm.approveAll}</Button>
               {/* TODO(real integration): Shopify/ikas/Meta Ads push — roadmap, not built in phase 1. */}
-              <Button size="sm" className="gap-1.5"><Download className="h-3.5 w-3.5" /> {mm.sync}</Button>
+              <Button size="sm" className="gap-1.5" onClick={exportAll}><Download className="h-3.5 w-3.5" /> {mm.sync}</Button>
             </div>
           </div>
 
@@ -246,7 +276,7 @@ export function GenerateClient({ falConnected }: { falConnected: boolean }) {
                       <span className="absolute left-2 top-2 rounded-full bg-primary/90 px-2 py-0.5 text-[10px] font-medium text-primary-foreground">{mm.aiTag}</span>
                     )}
                     <div className="absolute right-2 top-2 flex gap-1 opacity-0 transition group-hover:opacity-100">
-                      <button className="grid h-7 w-7 place-items-center rounded-lg bg-white/90 text-foreground shadow"><Download className="h-3.5 w-3.5" /></button>
+                      <button onClick={() => downloadImage(images[i], `${product.title}-${t(r.label)}`)} className="grid h-7 w-7 place-items-center rounded-lg bg-white/90 text-foreground shadow"><Download className="h-3.5 w-3.5" /></button>
                       <button onClick={generate} className="grid h-7 w-7 place-items-center rounded-lg bg-white/90 text-foreground shadow"><RefreshCw className="h-3.5 w-3.5" /></button>
                     </div>
                   </>

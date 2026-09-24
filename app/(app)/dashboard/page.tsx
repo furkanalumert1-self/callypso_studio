@@ -16,6 +16,7 @@ import {
   sceneUsage, scenes, shots, studio, topProducts, type ShotStatus,
 } from "@/lib/demo/data";
 import { formatRelative } from "@/lib/utils";
+import { toast } from "@/components/demo-toast";
 
 const statusLabel: Record<ShotStatus, { tr: string; en: string }> = {
   synced: { tr: "Senkron", en: "Synced" },
@@ -44,6 +45,7 @@ export default function Dashboard() {
       creditsT: "Render bütçesi", creditsUsed: "kullanılan kredi", renders: "render", cutouts: "kesim", variants: "varyant",
       topT: "En çok çekilen", topSub: "kataloğunun yıldız ürünleri", topShots: "çekim",
       kpiMore: "Daha fazla ölçüm",
+      toastDownload: "Demo: çekim indirildi.", toastRegen: "Demo: yeniden render kuyruğa alındı.",
     },
     en: {
       eyebrow: "Studio · Today", hi: "Hi Alex.", made: "shots made.",
@@ -56,6 +58,7 @@ export default function Dashboard() {
       creditsT: "Render budget", creditsUsed: "credits used", renders: "renders", cutouts: "cut-outs", variants: "variants",
       topT: "Most shot", topSub: "the stars of your catalog", topShots: "shots",
       kpiMore: "More metrics",
+      toastDownload: "Demo: shot downloaded.", toastRegen: "Demo: regeneration queued.",
     },
   }[lang];
 
@@ -128,8 +131,8 @@ export default function Dashboard() {
                   <p className="text-xs text-muted-foreground">{featured.product}</p>
                 </div>
                 <div className="flex gap-1.5">
-                  <button className="grid h-8 w-8 cursor-pointer place-items-center rounded-lg text-muted-foreground transition hover:bg-muted hover:text-foreground"><Download className="h-4 w-4" /></button>
-                  <button className="grid h-8 w-8 cursor-pointer place-items-center rounded-lg text-muted-foreground transition hover:bg-muted hover:text-foreground"><RefreshCw className="h-4 w-4" /></button>
+                  <button onClick={() => toast(m.toastDownload)} className="grid h-8 w-8 cursor-pointer place-items-center rounded-lg text-muted-foreground transition hover:bg-muted hover:text-foreground"><Download className="h-4 w-4" /></button>
+                  <button onClick={() => toast(m.toastRegen)} className="grid h-8 w-8 cursor-pointer place-items-center rounded-lg text-muted-foreground transition hover:bg-muted hover:text-foreground"><RefreshCw className="h-4 w-4" /></button>
                 </div>
               </div>
             </div>

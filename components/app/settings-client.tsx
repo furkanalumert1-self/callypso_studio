@@ -10,9 +10,11 @@ import { Input, Label } from "@/components/ui/input";
 import { Icon } from "@/components/ui/icon";
 import { Logo } from "@/components/ui/logo";
 import { useLang } from "@/components/i18n/language-provider";
+import { toast } from "@/components/demo-toast";
 
 export function SettingsClient({ connected }: { connected: Record<string, boolean> }) {
-  const { t, ui } = useLang();
+  const { t, ui, lang } = useLang();
+  const savedMsg = lang === "tr" ? "Demo: ayarlar kaydedildi." : "Demo: settings saved.";
 
   return (
     <div className="mx-auto max-w-3xl space-y-6">
@@ -112,7 +114,7 @@ export function SettingsClient({ connected }: { connected: Record<string, boolea
       </Card>
 
       <div className="flex justify-end">
-        <Button>{ui.saveChanges}</Button>
+        <Button onClick={() => toast(savedMsg)}>{ui.saveChanges}</Button>
       </div>
     </div>
   );

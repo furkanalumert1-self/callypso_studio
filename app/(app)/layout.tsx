@@ -1,5 +1,6 @@
 import { Sidebar } from "@/components/app/sidebar";
 import { Topbar } from "@/components/app/topbar";
+import { Toaster } from "@/components/demo-toast";
 
 export default function AppLayout({
   children,
@@ -11,6 +12,7 @@ export default function AppLayout({
         <Topbar />
         <main className="flex-1 overflow-y-auto p-5 lg:p-8">{children}</main>
       </div>
+      <Toaster />
     </div>
   );
 }

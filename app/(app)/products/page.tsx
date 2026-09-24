@@ -1,37 +1,63 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { Plus, Sparkles, Check, RefreshCw, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ShotImage } from "@/components/shot-image";
 import { useLang } from "@/components/i18n/language-provider";
-import { products } from "@/lib/demo/data";
+import { products as seedProducts, type Product } from "@/lib/demo/data";
 import { cn, formatMoney } from "@/lib/utils";
+import { toast } from "@/components/demo-toast";
 
 type Filter = "all" | "synced" | "needs";
+const NEW_EMOJIS = ["🆕", "✨", "📦", "🎁"];
 
 export default function ProductsPage() {
+  return (
+    <Suspense fallback={null}>
+      <ProductsPageInner />
+    </Suspense>
+  );
+}
+
+function ProductsPageInner() {
   const { lang } = useLang();
+  const searchParams = useSearchParams();
   const [filter, setFilter] = useState<Filter>("all");
+  const [products, setProducts] = useState<Product[]>(seedProducts);
+  const [query, setQuery] = useState(searchParams.get("q") ?? "");
 
   const m = {
     tr: {
       title: "Ürünler", sub: "Mağaza kataloğun ve her ürünün çekim durumu.",
       add: "Ürün ekle", all: "Tümü", synced: "Senkron", needs: "Görsel gerek",
       shots: "çekim", generate: "Çekim üret", synced2: "Senkron", draft: "Taslak",
+      search: "Ürün ara…", added: "Demo: yeni ürün eklendi.", newTitle: "Yeni Ürün",
     },
     en: {
       title: "Products", sub: "Your store catalog and each product's shot coverage.",
       add: "Add product", all: "All", synced: "Synced", needs: "Needs shots",
       shots: "shots", generate: "Generate", synced2: "Synced", draft: "Draft",
+      search: "Search products…", added: "Demo: new product added.", newTitle: "New Product",
     },
   }[lang];
 
-  const shown = products.filter((p) =>
-    filter === "all" ? true : filter === "synced" ? p.synced : !p.synced,
-  );
+  function addProduct() {
+    const id = `p${Date.now()}`;
+    const emoji = NEW_EMOJIS[products.length % NEW_EMOJIS.length];
+    setProducts((prev) => [
+      { id, title: `${m.newTitle} ${prev.length + 1}`, sku: `SKU-${id.slice(-5)}`, price: 0, emoji, hue: "200", shots: 0, synced: false },
+      ...prev,
+    ]);
+    toast(m.added);
+  }
+
+  const shown = products
+    .filter((p) => (filter === "all" ? true : filter === "synced" ? p.synced : !p.synced))
+    .filter((p) => `${p.title} ${p.sku}`.toLowerCase().includes(query.toLowerCase()));
   const filters: Filter[] = ["all", "synced", "needs"];
   const labels: Record<Filter, string> = { all: m.all, synced: m.synced, needs: m.needs };
 
@@ -42,7 +68,7 @@ export default function ProductsPage() {
           <h2 className="font-display text-2xl font-semibold tracking-tight">{m.title}</h2>
           <p className="text-sm text-muted-foreground">{m.sub}</p>
         </div>
-        <Button className="gap-2"><Plus className="h-4 w-4" /> {m.add}</Button>
+        <Button onClick={addProduct} className="gap-2"><Plus className="h-4 w-4" /> {m.add}</Button>
       </div>
 
       <div className="flex flex-wrap items-center gap-2">
@@ -53,8 +79,10 @@ export default function ProductsPage() {
             {labels[f]}
           </button>
         ))}
-        <div className="ml-auto hidden h-9 w-56 items-center gap-2 rounded-lg border border-border bg-card px-3 text-sm text-muted-foreground sm:flex">
-          <Search className="h-4 w-4" /> <span>{lang === "tr" ? "Ürün ara…" : "Search products…"}</span>
+        <div className="ml-auto hidden h-9 w-56 items-center gap-2 rounded-lg border border-border bg-card px-3 text-sm sm:flex">
+          <Search className="h-4 w-4 text-muted-foreground" />
+          <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder={m.search}
+            className="w-full bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none" />
         </div>
       </div>
 
