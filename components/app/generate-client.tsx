@@ -47,6 +47,7 @@ export function GenerateClient({ falConnected }: { falConnected: boolean }) {
   const [sceneId, setSceneId] = useState(scenes[1].id);
   const [generated, setGenerated] = useState(true);
   const [busy, setBusy] = useState(false);
+  const [exporting, setExporting] = useState(false);
   const [images, setImages] = useState<(string | null)[]>(shotRecipes.map(() => null));
   const [genError, setGenError] = useState<string | null>(null);
   const [sourcePhoto, setSourcePhoto] = useState<string | null>(null);
@@ -65,7 +66,7 @@ export function GenerateClient({ falConnected }: { falConnected: boolean }) {
       step1: "1 · Ürün", step2: "2 · Sahne Şablonu", source: "Kaynak fotoğraf",
       upload: "Fotoğraf yükle", generate: "4 varyasyon üret", regenerate: "Yeniden üret",
       generating: "Üretiliyor…", result: "4 Varyasyon", approveAll: "Tümünü onayla",
-      sync: "Dışa aktar",
+      sync: "Dışa aktar", exportingLabel: "Dışa aktarılıyor…",
       demoNote: "Demo modu — gerçekten üretmek için fal.ai anahtarını bağla.",
       liveNote: "fal.ai ile canlı üretim aktif.",
       roadmapNote: "Shopify/ikas/Meta senkronu bu ilk aşamada yok (TODO — yol haritası).",
@@ -81,7 +82,7 @@ export function GenerateClient({ falConnected }: { falConnected: boolean }) {
       step1: "1 · Product", step2: "2 · Scene Template", source: "Source photo",
       upload: "Upload photo", generate: "Generate 4 variations", regenerate: "Regenerate",
       generating: "Generating…", result: "4 Variations", approveAll: "Approve all",
-      sync: "Export",
+      sync: "Export", exportingLabel: "Exporting…",
       demoNote: "Demo mode — connect your fal.ai key to generate for real.",
       liveNote: "Generating live with fal.ai.",
       roadmapNote: "Shopify/ikas/Meta sync isn't built in this first phase (TODO — roadmap).",
@@ -166,29 +167,61 @@ export function GenerateClient({ falConnected }: { falConnected: boolean }) {
     toast(lang === "tr" ? "Demo: 4 varyasyon onaylandı." : "Demo: 4 variations approved.");
   }
 
-  function downloadImage(url: string | null, label: string) {
-    if (!url) {
-      toast(lang === "tr" ? "Demo: bu varyasyon için indirilecek dosya yok." : "Demo: no file to download for this variation.");
-      return;
-    }
+  function downloadUrl(url: string, filename: string) {
     const a = document.createElement("a");
-    a.href = url;
-    a.download = `${label.replace(/\s+/g, "-").toLowerCase()}.jpg`;
-    a.target = "_blank";
-    a.rel = "noopener noreferrer";
+    a.href = `/api/download?url=${encodeURIComponent(url)}&filename=${encodeURIComponent(filename)}`;
+    a.download = filename;
     document.body.appendChild(a);
     a.click();
     a.remove();
   }
 
-  function exportAll() {
+  function downloadImage(url: string | null, label: string) {
+    if (!url) {
+      toast(lang === "tr" ? "Demo: bu varyasyon için indirilecek dosya yok." : "Demo: no file to download for this variation.");
+      return;
+    }
+    downloadUrl(url, `${label.replace(/\s+/g, "-").toLowerCase()}.jpg`);
+  }
+
+  async function exportAll() {
     const real = images.filter(Boolean) as string[];
     if (real.length === 0) {
       toast(lang === "tr" ? "Demo: dışa aktarma simüle edildi (gerçek dosya yok)." : "Demo: export simulated (no real files).");
       return;
     }
-    real.forEach((url, i) => downloadImage(url, `${product.title}-${i + 1}`));
-    toast(lang === "tr" ? `Demo: ${real.length} kreatif dışa aktarıldı.` : `Demo: exported ${real.length} creatives.`);
+    if (exporting) return;
+    setExporting(true);
+    try {
+      const { default: JSZip } = await import("jszip");
+      const zip = new JSZip();
+      const results = await Promise.allSettled(
+        real.map(async (url, i) => {
+          const res = await fetch(`/api/download?url=${encodeURIComponent(url)}`);
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          const blob = await res.blob();
+          zip.file(`${product.title}-${i + 1}.jpg`, blob);
+        }),
+      );
+      const okCount = results.filter((r) => r.status === "fulfilled").length;
+      if (okCount === 0) throw new Error("all downloads failed");
+
+      const zipBlob = await zip.generateAsync({ type: "blob" });
+      const zipUrl = URL.createObjectURL(zipBlob);
+      const a = document.createElement("a");
+      a.href = zipUrl;
+      a.download = `${product.title.replace(/\s+/g, "-").toLowerCase()}-creatives.zip`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(zipUrl);
+
+      toast(lang === "tr" ? `Demo: ${okCount} kreatif zip olarak indirildi.` : `Demo: exported ${okCount} creatives as a zip.`);
+    } catch {
+      toast(lang === "tr" ? "Demo: dışa aktarma başarısız oldu." : "Demo: export failed.");
+    } finally {
+      setExporting(false);
+    }
   }
 
   return (
@@ -289,7 +322,9 @@ export function GenerateClient({ falConnected }: { falConnected: boolean }) {
             <div className="flex gap-2">
               <Button variant="outline" size="sm" className="gap-1.5" onClick={approveAll}><Check className="h-3.5 w-3.5" /> {mm.approveAll}</Button>
               {/* TODO(real integration): Shopify/ikas/Meta Ads push — roadmap, not built in phase 1. */}
-              <Button size="sm" className="gap-1.5" onClick={exportAll}><Download className="h-3.5 w-3.5" /> {mm.sync}</Button>
+              <Button size="sm" className="gap-1.5" onClick={exportAll} disabled={exporting}>
+                <Download className={cn("h-3.5 w-3.5", exporting && "animate-bounce")} /> {exporting ? mm.exportingLabel : mm.sync}
+              </Button>
             </div>
           </div>
 
