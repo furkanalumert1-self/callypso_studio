@@ -95,6 +95,10 @@ export async function editProductImage({ prompt, ratio, sourceImage }: EditProdu
       prompt,
       image_url: sourceImage,
       aspect_ratio: KONTEXT_ASPECT_RATIO[ratio] ?? "1:1",
+      // Kontext defaults to 3.5 and leans heavily toward preserving the
+      // source image; nudging this up makes it actually render the scene
+      // described in the prompt instead of barely touching the background.
+      guidance_scale: 5,
     }),
     signal: AbortSignal.timeout(60000),
   });

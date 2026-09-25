@@ -19,24 +19,28 @@ const ratioClass: Record<string, string> = {
 };
 
 /** No source photo: best-effort text-to-image description (fal-ai/flux/schnell). */
-function buildPrompt(productTitle: string, sceneName: string, sceneMood: string, variationLabel: string): string {
+function buildPrompt(productTitle: string, sceneName: string, sceneSurface: string, sceneMood: string, variationLabel: string): string {
   return [
     `Professional e-commerce product photography of "${productTitle}".`,
-    `Scene: ${sceneName} — ${sceneMood}.`,
-    `Shot style: ${variationLabel}.`,
+    `Scene concept: "${sceneName}." The scene must literally and visibly show: ${sceneSurface}.`,
+    `Mood: ${sceneMood}. Shot style: ${variationLabel}.`,
     "Keep the product's logo, text, color, shape and packaging unchanged (Product Lock); only the scene, lighting and composition change.",
     "Studio quality, sharp focus, sales-ready creative.",
   ].join(" ");
 }
 
 /** Real source photo: an edit instruction for fal-ai/flux-pro/kontext, which
- * conditions on the actual uploaded pixels instead of a text description. */
-function buildEditInstruction(sceneName: string, sceneMood: string, variationLabel: string): string {
+ * conditions on the actual uploaded pixels instead of a text description.
+ * Kontext leans hard toward preserving the input image, so the scene has to
+ * be spelled out as concrete, literal elements to render — a vague mood name
+ * alone gets ignored and the model just re-crops the original background. */
+function buildEditInstruction(sceneName: string, sceneSurface: string, sceneMood: string, variationLabel: string): string {
   return [
-    `Place this exact product into a new scene: ${sceneName} — ${sceneMood}.`,
-    `Shot style: ${variationLabel}.`,
-    "Keep the product itself completely unchanged — same logo, text, color, shape and packaging (Product Lock). Only change the background, scene, lighting and composition.",
-    "Studio quality, sharp focus, sales-ready creative.",
+    `Replace ONLY the background and environment of this product photo with a new scene: "${sceneName}".`,
+    `The new background must literally and visibly contain: ${sceneSurface}. Do not leave a plain, empty or unchanged background — the described elements must be clearly visible around the product.`,
+    `Mood: ${sceneMood}. Shot style: ${variationLabel}.`,
+    "Keep the product itself completely unchanged — identical logo, text, color, shape, proportions and packaging (Product Lock). Only the background, props, lighting and composition change.",
+    "Studio quality, sharp focus, sales-ready e-commerce creative.",
   ].join(" ");
 }
 
@@ -136,12 +140,13 @@ export function GenerateClient({ falConnected }: { falConnected: boolean }) {
       return;
     }
 
+    const sceneSurface = t(scene.surface);
     const sceneMood = t(scene.mood);
     const results = await Promise.allSettled(
       shotRecipes.map(async (r) => {
         const prompt = sourcePhoto
-          ? buildEditInstruction(scene.name, sceneMood, t(r.label))
-          : buildPrompt(product.title, scene.name, sceneMood, t(r.label));
+          ? buildEditInstruction(scene.name, sceneSurface, sceneMood, t(r.label))
+          : buildPrompt(product.title, scene.name, sceneSurface, sceneMood, t(r.label));
         const res = await fetch("/api/generate-image", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
